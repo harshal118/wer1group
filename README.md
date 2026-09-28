@@ -34,6 +34,16 @@ The existing site served `index.html` and `style.css` from the repository root. 
 
 The existing `.env`, `.gitignore`, Git remote and branch configuration are unchanged. `.env` contains a local Stitch credential; it is not used or referenced by the website and must stay out of published artifacts. No commit, push or deployment is performed by the scripts.
 
+## Browser caching on Cloudflare Pages
+
+The root `_headers` file ships beside `index.html` in the existing deployment directory. Cloudflare Pages applies its rules to static responses; no build-output or dashboard configuration change is required. See [Cloudflare's headers documentation](https://developers.cloudflare.com/pages/configuration/headers/).
+
+- `/` and `/*.html`: `Cache-Control: public, max-age=0, must-revalidate` allows storage but requires revalidation before reuse.
+- `/*.css` and `/*.js`: the same revalidation policy protects assets whose filenames remain unchanged between deployments. Cloudflare's wildcard matches nested paths, including `/assets/navigation.js`.
+- `/assets/images/*` and `/public/images/*`: `Cache-Control: public, max-age=3600, must-revalidate` allows one hour of browser caching, then requires revalidation. Replacing an image at the same URL can therefore take up to one hour to appear in an existing cache.
+
+These rules do not overlap for current assets, avoiding combined `Cache-Control` values. Add an explicit revalidation rule if a new extensionless HTML route is introduced. No `immutable`, global `no-store`, query strings, or service worker are used. External Google Fonts responses retain Google's cache policy. The local preview server does not emulate `_headers`; these policies take effect on Pages after deployment. Headers cannot retroactively expire responses already stored under an earlier cache policy.
+
 ## Content and future pages
 
 Only `/` is implemented. Navigation uses working in-page anchors; enquiry opens `wer1infra@gmail.com`. Future `/about`, `/projects`, `/projects/[slug]` and `/contact` pages can reuse the modules and design tokens without placeholder routes today.
