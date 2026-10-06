@@ -1,0 +1,44 @@
+/* Scoped to What We Do; shared company and project styling stays unchanged. */
+#what-we-do .company-grid--services { gap: 24px; }
+#what-we-do .service-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 348px;
+  padding: clamp(30px, 3vw, 44px);
+  border: 1px solid #bea57838;
+  background: #080c10;
+  transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
+}
+#what-we-do .service-media, #what-we-do .service-shade { position: absolute; inset: 0; pointer-events: none; }
+#what-we-do .service-media { z-index: -3; background: radial-gradient(ellipse at top right, #bea57812, transparent 75%); }
+#what-we-do .service-media img { width: 100%; height: 100%; object-fit: cover; opacity: .34; filter: saturate(.35); transition: opacity 350ms ease; }
+#what-we-do .service-shade { z-index: -2; background: linear-gradient(90deg, #030a10e8, #030a1080), linear-gradient(0deg, #030a10e8, transparent 90%); }
+#what-we-do .service-card::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(#bea57808 1px, transparent 1px), linear-gradient(90deg, #bea57808 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(130deg, transparent, #000);
+}
+#what-we-do .service-number { position: absolute; top: 12px; right: 24px; z-index: -1; font: 400 clamp(112px, 12vw, 168px)/1 Georgia, serif; letter-spacing: -.06em; color: var(--champagne); opacity: .075; pointer-events: none; }
+#what-we-do .service-icon { display: block; width: 44px; height: 44px; color: var(--champagne); transition: color 280ms ease; }
+#what-we-do .service-content h3 { margin: 28px 0 16px; max-width: 28ch; font-size: clamp(20px, 1.65vw, 24px); line-height: 1.35; transition: color 280ms ease; }
+#what-we-do .service-content p { max-width: 42ch; line-height: 1.8; }
+@media (hover: hover) and (pointer: fine) {
+  #what-we-do .service-card:hover { transform: translateY(-4px); border-color: #bea57880; box-shadow: 0 8px 24px #bea57808; }
+  #what-we-do .service-card:hover .service-media img { opacity: .46; }
+  #what-we-do .service-card:hover h3, #what-we-do .service-card:hover .service-icon { color: #ead2a0; }
+}
+@media (max-width: 1023px) {
+  #what-we-do .service-card { padding: 28px; }
+  #what-we-do .service-number { font-size: 120px; }
+}
+@media (max-width: 767px) {
+  #what-we-do .company-grid--services { gap: 20px; }
+  #what-we-do .service-card { min-height: 0; padding: 30px 24px; }
+  #what-we-do .service-number { font-size: 112px; right: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #what-we-do .service-card, #what-we-do .service-media img, #what-we-do .service-icon, #what-we-do .service-content h3 { transition: none; }
+  #what-we-do .service-card:hover { transform: none; }
+}

@@ -1,80 +1,33 @@
-# WER1 Group
+# WER1 GROUP scroll experience
 
-Static homepage based on the approved Stitch **WER1 Group — Homepage V2**:
+`npm run dev` serves http://127.0.0.1:5173/. `npm run lint` checks the source; `npm run build` creates `dist/`. `npm run test:e2e` checks the seven-card sequence and stationary centerpiece against the running development server.
 
-- Project: `11805015439516923329`
-- Screen: `1b08d3c063c0420c9d83cca3ac4e05d5`
+App renders a 400vh scroll container and fixed full-screen canvas. The header labels and navigation layout are preserved, with champagne gold on a near-black background.
 
-## Local review
+The centerpiece is the supplied, unmodified `Luxurious_WER1_Group_Gold_Logo.webp`, served from `public/images/hero/`. `App.tsx` displays the full native-aspect image in a fixed centered layer. Narrow CSS edge masks blend its outer background into the navy-black page without cropping the logo/platform.
 
-Requires Node.js 20 or newer for the optional development scripts. No package installation is needed.
+`HeroImage.tsx` reuses the same image on a camera-aligned silhouette mesh for depth occlusion. Readable cards sit in front of this plane; departing cards pass behind the lettering/platform outline. The full image remains visible underneath the transparent card canvas. No generated lettering, platform, lighting, environment, or GLB is rendered. `FixedCamera.tsx` preserves the existing card camera orientation and framing.
 
-```sh
-node scripts/build.mjs
-node scripts/serve.mjs
-```
+Seven data-driven `ProjectCard3D` instances reuse the Aikyam texture design, perspective, depth testing and enter/read/retreat animation. Each is independent of the static logo centerpiece. All render images are extracted from `wer1 profile.pdf`; provenance and web dimensions are in `public/images/projects/README.md`. Every card uses **Residential + Commercial**, as instructed.
 
-Open http://127.0.0.1:4173. Stop the preview with Ctrl+C. The preview serves only public files, never `.env`, `.git`, or source modules.
+| Project | Side | Global scroll interval |
+| --- | --- | --- |
+| Aikyam | Left | 8–20% |
+| Sinclair Place | Right | 20–32% |
+| Sukhada Apartment | Left | 32–44% |
+| Chinchwad | Right | 44–56% |
+| Marunji | Left | 56–68% |
+| Punawale Phase 1 | Right, wider panel | 68–82% |
+| Punawale Phase 2 | Left, wider panel | 82–96% |
 
-## Editing
+Each interval contains entry (0–18%), approach (18–45%), stable reading (45–73%), and depth retreat/fade (73–100%). All images retain their complete source aspect ratio; upcoming cards use a wider presentation. No card remains at the end of the scroll. The original 400vh page / 300vh scrolling distance is unchanged. The logo and camera remain fixed throughout.
 
-- `src/components.mjs`: reusable header/navigation, buttons, section headings, project cards/grid, philosophy grid and footer.
-- `src/homepage.mjs`: homepage section composition.
-- `src/data.mjs`: verified project content, business areas, credibility points and navigation.
-- `style.css`: exact WER1 color tokens, typography, responsive layouts and restrained interactions.
-- `assets/navigation.js`: progressive, keyboard-accessible mobile navigation.
-- `assets/images/`: locally hosted imagery from the approved Stitch screen; `-small` variants support responsive loading.
-- `index.html`: generated, complete HTML. Regenerate after editing the source modules and include the updated file in any future commit.
+`ProjectCards3D` prepares only cards near the current scroll position (at most two), including the approaching card. Generated canvas textures are disposed when their card unmounts, and reverse scrolling remounts the correct card using cached static images. Card loading does not suspend or replace the centerpiece. No PDF parsing occurs at runtime.
 
-The page remains readable and navigable without JavaScript. Only the mobile disclosure menu needs JavaScript. Cormorant Garamond and Inter load through Google Fonts with `display=swap` and local fallbacks. No runtime framework, Tailwind CDN, icon font, animation library, or application environment variables are required.
+## Responsive behavior
 
-## Deployment continuity
+The approved desktop layout and card values remain the baseline at 1024px and above. `styles/responsive.css` owns tablet (768–1023px) and mobile (below 768px) layout overrides. Compact layouts use stable viewport height, shared spacing tokens, and a DPR cap of 1.25. A short-landscape override keeps the image and card side by side after orientation changes.
 
-The existing site served `index.html` and `style.css` from the repository root. That contract is preserved: **the deployment directory remains the repository root, and no Cloudflare build command is required**. The generated `index.html` is included rather than requiring deployment-time generation. There was no checked-in Cloudflare/Wrangler configuration or CI workflow to change; any dashboard-side settings remain outside this repository's visibility.
+`features/three/cardLayout.ts` keeps the original desktop coordinates separate from compact card positions. The image occlusion mesh reads the compact image bounds so the supplied WebP and its depth mask remain aligned. Reduced-motion mode retains readable cards with fades, without spatial travel. Touch cards keep a persistent EXPLORE cue and the same project-anchor action.
 
-The existing `.env`, `.gitignore`, Git remote and branch configuration are unchanged. `.env` contains a local Stitch credential; it is not used or referenced by the website and must stay out of published artifacts. No commit, push or deployment is performed by the scripts.
-
-## Browser caching on Cloudflare Pages
-
-The root `_headers` file ships beside `index.html` in the existing deployment directory. Cloudflare Pages applies its rules to static responses; no build-output or dashboard configuration change is required. See [Cloudflare's headers documentation](https://developers.cloudflare.com/pages/configuration/headers/).
-
-- `/` and `/*.html`: `Cache-Control: public, max-age=0, must-revalidate` allows storage but requires revalidation before reuse.
-- `/*.css` and `/*.js`: the same revalidation policy protects assets whose filenames remain unchanged between deployments. Cloudflare's wildcard matches nested paths, including `/assets/navigation.js`.
-- `/assets/images/*` and `/public/images/*`: `Cache-Control: public, max-age=3600, must-revalidate` allows one hour of browser caching, then requires revalidation. Replacing an image at the same URL can therefore take up to one hour to appear in an existing cache.
-
-These rules do not overlap for current assets, avoiding combined `Cache-Control` values. Add an explicit revalidation rule if a new extensionless HTML route is introduced. No `immutable`, global `no-store`, query strings, or service worker are used. External Google Fonts responses retain Google's cache policy. The local preview server does not emulate `_headers`; these policies take effect on Pages after deployment. Headers cannot retroactively expire responses already stored under an earlier cache policy.
-
-## Content and future pages
-
-Only `/` is implemented. Navigation uses working in-page anchors; enquiry opens `wer1infra@gmail.com`. Future `/about`, `/projects`, `/projects/[slug]` and `/contact` pages can reuse the modules and design tokens without placeholder routes today.
-
-Company and project facts come from `docs/wer1-codex-profile.md`. The portfolio contains all three completed, two ongoing and two upcoming projects, using their corresponding extracted images under `public/images/projects/`. Unnamed projects have neutral location labels; upcoming phases remain internal identifiers. Cards show documented types where available and distinguish completion, expected completion and launch dates. No project detail routes exist yet.
-
-The confirmed enquiry email is `wer1infra@gmail.com`; both profile phone numbers are included. No office address is supplied. The Stitch hero and contact backgrounds remain decorative illustrations, not project photography; the hero retains its illustrative imagery label. Layout, typography, colors and responsive behavior are preserved.
-
-## Intentional production differences from Stitch
-
-- Responsive 3/2/1 project grids, a functioning mobile menu and accessible focus/reduced-motion behavior.
-- Actual WER1 CSS tokens replace the export's extra generated theme colors; low-contrast small text on ivory uses dark text.
-- Unsupported geographic/business/financial claims, archive dates and monograph metadata were removed or replaced with conservative copy.
-- The known email is an active mail link; CTAs no longer link to themselves.
-- Project cards have no nonexistent detail-page destinations. A section note explains the source and unnamed project labels.
-- The footer is simplified to brand, navigation and contact, omitting the prototype's extra Monograph column.
-- Hero height adapts to the viewport instead of the export's fixed 870px; spacing adapts on smaller screens.
-- The hero image's baked-in prototype navigation is cropped out with CSS. Philosophy numerals use the muted-text token for sufficient large-text contrast on ivory.
-
-## Checks
-
-```sh
-node scripts/build.mjs
-node --check assets/navigation.js
-node --check src/components.mjs
-node --check src/homepage.mjs
-node --check src/data.mjs
-node --check scripts/serve.mjs
-git diff --check
-```
-
-There is no existing lint or TypeScript toolchain. Browser review should cover 375, 768, 1024 and 1440px widths, keyboard navigation, reduced motion and image loading. Browser test dependencies are intentionally kept outside the production repository.
-
-Implementation verification (2026-09-26): static build, JavaScript syntax, exact palette, reproducible generation and Git whitespace checks passed. Headless Chrome checks at 375, 768, 1024, 1440 and 1920px found no horizontal overflow, missing images/anchors, console errors or automated axe WCAG A/AA violations. Mobile menu opening, Escape/focus return and link selection passed, as did reduced-motion and navigation without JavaScript. Desktop/mobile screenshots were visually reviewed against the Stitch source. Automated accessibility checks do not replace a full manual audit.
+The mobile header uses a native modal dialog for focus containment, Escape dismissal, and scroll locking. About and Projects stack on mobile; tablet retains paired columns and wraps the metrics. Existing desktop screenshots, all nine requested viewports, project anchors, touch, orientation changes, and reduced motion are covered by the Playwright suite.

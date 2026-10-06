@@ -1,0 +1,41 @@
+.company-section, .contact-section { border-top: 1px solid #bea57840; }
+.company-section { scroll-margin-top: 100px; }
+.company-section > .section-eyebrow { font-weight: 400; margin: 0; }
+.company-intro, .contact-section h2 { margin: 30px 0 0; color: var(--bronze); font-size: clamp(34px, 4vw, 62px); font-weight: 400; line-height: 1.13; letter-spacing: -.035em; }
+.company-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; margin-top: 64px; }
+.company-item { border-top: 1px solid #bea57840; padding-top: 26px; }
+.company-number { color: var(--champagne); font-size: 12px; letter-spacing: .15em; }
+.company-item h3 { margin: 20px 0; color: var(--bronze); font-size: clamp(20px, 1.8vw, 26px); font-weight: 400; line-height: 1.35; letter-spacing: -.015em; }
+.company-item p { margin: 0; max-width: 46ch; font-size: 17px; line-height: 1.85; }
+.company-grid--reasons { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; margin-top: 42px; }
+.company-grid--reasons h3 { font-size: 21px; }
+.company-section--why-choose { padding-top: 64px; }
+.contact-section { scroll-margin-top: 90px; }
+.contact-section h2 { margin-top: 0; max-width: 18ch; }
+.contact-introduction { max-width: 48ch; margin: 32px 0 0; font-size: 18px; line-height: 1.8; }
+.contact-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; margin: 72px 0 0; border-top: 1px solid #bea57840; padding-top: 32px; }
+.contact-details dt { color: var(--bronze); font-size: 12px; letter-spacing: .18em; }
+.contact-details dd { margin: 18px 0 0; }
+.contact-details a { display: block; width: fit-content; min-height: 44px; padding-block: 6px; color: var(--text); text-decoration: none; font-size: clamp(22px, 2.4vw, 32px); line-height: 1.45; overflow-wrap: anywhere; }
+.contact-details a:hover { color: var(--bronze); }
+.contact-details a:focus-visible, .contact-section:focus-visible { outline: 1px solid var(--champagne); outline-offset: 6px; }
+.contact-section:focus:not(:focus-visible) { outline: none; }
+.end-signature { max-width: 1440px; margin-inline: auto; padding: 32px 8% 48px; border-top: 1px solid #bea57840; color: var(--champagne); font-size: 12px; letter-spacing: .15em; line-height: 1.8; }
+/* Retain the approved Enquire colors now that the label is a functional link. */
+.prototype-header nav a.enquire-link { color: var(--bronze); }
+.mobile-menu nav a.enquire-link { color: var(--text); }
+@media (max-width: 1023px) {
+  .company-grid { gap: var(--content-gap); margin-top: 48px; }
+  .company-grid--reasons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .contact-details { gap: var(--content-gap); }
+  .end-signature { padding-inline: var(--page-padding); }
+}
+@media (max-width: 767px) {
+  .company-grid, .company-grid--reasons, .contact-details { grid-template-columns: minmax(0, 1fr); }
+  .company-intro, .contact-section h2 { font-size: clamp(32px, 8.5vw, 44px); }
+  .company-item p, .contact-introduction { font-size: 16px; }
+  .company-section--why-choose { padding-top: 48px; }
+  .contact-section { scroll-margin-top: 76px; }
+  .contact-details { margin-top: 42px; }
+  .end-signature { font-size: 11px; letter-spacing: .1em; }
+}

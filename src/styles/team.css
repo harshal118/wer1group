@@ -1,0 +1,44 @@
+/* Our Team only: open-edged panels distinguish these from the service cards. */
+#team .company-grid { gap: 32px; }
+#team .team-panel {
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: 320px; padding: clamp(32px, 3vw, 44px);
+  background: #080c10;
+  border-top: 1px solid #bea57850; border-left: 1px solid #bea57824;
+  transition: transform 280ms ease, border-color 280ms ease;
+}
+#team .team-panel-media, #team .team-panel-shade { position: absolute; inset: 0; pointer-events: none; }
+#team .team-panel-media { z-index: -3; background: radial-gradient(ellipse at top right, #bea57812, transparent 80%); }
+#team .team-panel-media img { width: 100%; height: 100%; object-fit: cover; opacity: .3; filter: saturate(.3); transition: opacity 350ms ease; }
+#team .team-panel-plan { position: absolute; width: 90%; height: 100%; right: -12%; top: -10%; color: var(--champagne); opacity: .12; transition: opacity 350ms ease; }
+#team .team-panel-shade { z-index: -2; background: linear-gradient(90deg, #030a10bd, #030a1040), linear-gradient(0deg, #030a10d9, transparent); }
+#team .team-panel::after { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(#bea57806 1px, transparent 1px), linear-gradient(90deg, #bea57806 1px, transparent 1px);
+  background-size: 48px 48px; mask-image: linear-gradient(120deg, transparent, #000);
+}
+#team .team-panel-marker { position: absolute; bottom: -26px; right: 22px; z-index: -1; color: var(--champagne); opacity: .045; font-size: clamp(140px, 13vw, 184px); font-weight: 300; line-height: 1; letter-spacing: -.07em; pointer-events: none; }
+#team .team-panel-heading { display: flex; align-items: center; gap: 18px; margin-bottom: 30px; }
+#team .team-panel-icon { flex: 0 0 42px; width: 42px; height: 42px; color: var(--champagne); transition: color 280ms ease; }
+#team .team-panel-heading h3 { margin: 0; font-size: clamp(20px, 1.65vw, 24px); line-height: 1.4; transition: color 280ms ease; }
+#team .team-panel-content p { max-width: 44ch; line-height: 1.85; }
+@media (hover: hover) and (pointer: fine) {
+  #team .team-panel:hover { transform: translateY(-3px); border-top-color: #bea57899; border-left-color: #bea57850; }
+  #team .team-panel:hover .team-panel-media img { opacity: .4; }
+  #team .team-panel:hover .team-panel-plan { opacity: .18; }
+  #team .team-panel:hover h3, #team .team-panel:hover .team-panel-icon { color: #ead2a0; }
+}
+@media (max-width: 1023px) {
+  #team .company-grid { gap: 24px; }
+  #team .team-panel { padding: 28px; min-height: 330px; }
+  #team .team-panel-heading { gap: 14px; }
+  #team .team-panel-icon { flex-basis: 36px; width: 36px; height: 36px; }
+}
+@media (max-width: 767px) {
+  #team .team-panel { min-height: 0; padding: 30px 24px 42px; }
+  #team .team-panel-marker { font-size: 140px; }
+  #team .team-panel-heading { margin-bottom: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #team .team-panel, #team .team-panel-media img, #team .team-panel-plan, #team .team-panel-icon, #team .team-panel-heading h3 { transition: none; }
+  #team .team-panel:hover { transform: none; }
+}

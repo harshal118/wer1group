@@ -1,0 +1,43 @@
+:root {
+  --champagne: #bea578;
+  --bronze: #cbb58e;
+  --text: #d5cbb9;
+  --background: #030a10;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--background); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.scroll-container { height: 400vh; }
+.fixed-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+
+}
+.fixed-canvas canvas { display: block; }
+.prototype-header {
+  position: fixed;
+  z-index: 2;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 43px 56px;
+  color: var(--text);
+}
+.project-title { font-size: 14px; font-weight: 500; letter-spacing: .2em; color: var(--bronze); white-space: nowrap; }
+.title-divider { margin-inline: 15px; color: var(--champagne); font-weight: 300; }
+.project-name { color: var(--text); font-weight: 400; }
+.prototype-header nav { display: flex; align-items: center; gap: 39px; }
+.prototype-header a { position: relative; padding-block: 8px; font-size: 12px; letter-spacing: .085em; cursor: default; }
+.prototype-header a[aria-current], .prototype-header .enquire-link { color: var(--bronze); }
+.prototype-header a::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: var(--champagne); opacity: 0; transition: opacity 160ms ease; }
+.prototype-header a:hover::after, .prototype-header a:focus-visible::after { opacity: .7; }
+.prototype-header a:focus-visible { outline: 1px solid var(--champagne); outline-offset: 5px; }
+.model-status { position: fixed; z-index: 1; inset: 0; display: grid; place-items: center; font-size: 14px; color: var(--text); pointer-events: none; }
+
+.hero-image-stage { position: fixed; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.hero-image { display: block; width: min(78vw, 1180px, calc(80vh * 1672 / 941)); height: auto;
+  mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent), linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
+  mask-composite: intersect;
+}
