@@ -1,13 +1,6 @@
 import { defineConfig } from '@playwright/test';
 export default defineConfig({
-  testDir: './tests',
-  // Limit simultaneous WebGL contexts during viewport and screenshot validation.
-  workers: 2,
-  use: {
-    baseURL: 'http://127.0.0.1:5173',
-    viewport: { width: 1440, height: 1000 },
-    launchOptions: { args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] },
-  },
-  webServer: { command: 'npm run dev', url: 'http://127.0.0.1:5173', reuseExistingServer: true },
-  reporter: 'list',
+  testDir: './tests', fullyParallel: false, reporter: 'list',
+  use: { baseURL: 'http://127.0.0.1:4173', browserName: 'chromium' },
+  webServer: { command: 'npm run preview -- --port 4173 --strictPort', url: 'http://127.0.0.1:4173', reuseExistingServer: false },
 });

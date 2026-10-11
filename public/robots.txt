@@ -1,3 +1,2 @@
-# Design preview. Enable indexing only after replacing placeholder content.
 User-agent: *
-Disallow: /
+Allow: /

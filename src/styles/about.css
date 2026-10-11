@@ -1,0 +1,43 @@
+/* Isolated to the About banner and introduction; shared tokens remain unchanged. */
+.wer1-about-banner { position: relative; isolation: isolate; overflow: hidden; height: clamp(380px, 30vw, 480px); display: grid; place-items: center; background: var(--ink); color: #fff; }
+.wer1-about-banner-image { position: absolute; z-index: -2; top: -80px; left: 0; width: 100%; height: calc(100% + 160px); max-width: none; object-fit: cover; object-position: 50% 54%; will-change: transform; }
+.wer1-about-banner-shade { position: absolute; inset: 0; z-index: -1; background: rgb(0 0 0 / 42%); }
+.wer1-about-banner-content { text-align: center; }
+.wer1-about-banner h1 { color: #fff; font: 500 clamp(48px, 5vw, 76px)/1.08 var(--font-editorial); letter-spacing: -.02em; margin: 0 0 18px; }
+.wer1-about-banner ol { display: flex; justify-content: center; align-items: center; gap: 14px; padding: 0; margin: 0; list-style: none; font-size: 13px; }
+.wer1-about-banner li { display: flex; align-items: center; gap: 14px; }
+.wer1-about-banner a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 5px; transition: text-decoration-color 200ms ease; }
+.wer1-about-banner a:hover { text-decoration-color: currentColor; }
+.wer1-about-banner a:focus-visible { outline-color: #fff; }
+.wer1-about-introduction { display: grid; grid-template-columns: minmax(0, .46fr) minmax(0, .54fr); align-items: center; gap: clamp(32px, 4.5vw, 72px); padding-block: clamp(52px, 6vw, 92px); }
+.wer1-about-introduction .eyebrow { color: var(--accent); margin-bottom: 20px; }
+.wer1-about-introduction h2 { font: 500 clamp(36px, 3.3vw, 52px)/1.12 var(--font-editorial); letter-spacing: -.025em; margin: 0 0 28px; }
+.wer1-about-introduction-body { font-size: 15px; line-height: 1.85; color: var(--muted); max-width: 56ch; }
+.wer1-about-introduction-body p + p { margin-top: 22px; }
+.wer1-about-construction { position: relative; overflow: hidden; margin: 0; aspect-ratio: 6/5; background: var(--ink); }
+.wer1-about-construction > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 39% 50%; }
+@media (prefers-reduced-motion: no-preference) {
+  .wer1-about-entered { animation: wer1-about-enter 650ms ease both; }
+  .wer1-about-introduction-body.wer1-about-entered { animation-delay: 100ms; }
+  .wer1-about-construction.wer1-about-entered { animation-delay: 150ms; }
+}
+@keyframes wer1-about-enter { from { opacity: .6; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (max-width: 1024px) {
+  .wer1-about-introduction { gap: 32px; align-items: start; }
+  .wer1-about-construction { aspect-ratio: 4/5; }
+}
+@media (max-width: 768px) {
+  .wer1-about-banner { height: 330px; }
+  .wer1-about-introduction { grid-template-columns: 1fr; gap: 32px; }
+  .wer1-about-introduction-body { max-width: 66ch; }
+  .wer1-about-construction { aspect-ratio: 3/2; }
+}
+@media (max-width: 430px) {
+  .wer1-about-banner { height: 300px; }
+  .wer1-about-construction { aspect-ratio: 6/5; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wer1-about-banner-image { transform: none !important; will-change: auto; }
+}
+.wer1-about-page :is(#philosophy, #expertise, #services, #values, #approach) { scroll-margin-top: 120px; }
+@media (max-width: 768px) { .wer1-about-banner-image { transform: none !important; will-change: auto; } .wer1-about-page :is(#philosophy, #expertise, #services, #values, #approach) { scroll-margin-top: 96px; } }

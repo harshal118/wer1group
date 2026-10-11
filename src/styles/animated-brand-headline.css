@@ -1,0 +1,13 @@
+.opening-statement .animated-brand-headline { position: relative; }
+.animated-brand-headline .brand-headline-size { visibility: hidden; pointer-events: none; padding-bottom: .12em; }
+.animated-brand-headline .brand-headline-phrase { position: absolute; inset: 0; }
+.animated-brand-headline .brand-headline-waiting { opacity: 0; }
+.animated-brand-headline .brand-headline-enter { animation: brand-headline-enter 500ms cubic-bezier(.22, .61, .36, 1) both; }
+.animated-brand-headline .brand-headline-exit { animation: brand-headline-exit 500ms cubic-bezier(.4, 0, .6, 1) both; }
+.opening-statement .intro-heading.is-revealed { animation: none; }
+@keyframes brand-headline-enter { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes brand-headline-exit { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-28px); } }
+@media (prefers-reduced-motion: reduce) {
+  .animated-brand-headline .brand-headline-phrase { animation: none; transform: none; opacity: 1; }
+}
+.about.opening-statement { padding-block: clamp(40px, 4.2vw, 64px); }

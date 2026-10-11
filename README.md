@@ -1,33 +1,117 @@
-# WER1 GROUP scroll experience
+# WER1 Group
 
-`npm run dev` serves http://127.0.0.1:5173/. `npm run lint` checks the source; `npm run build` creates `dist/`. `npm run test:e2e` checks the seven-card sequence and stationary centerpiece against the running development server.
+React + TypeScript + Vite website for the existing Cloudflare Pages project at https://wer1group.in/. The latest refinement keeps the approved branding and project data, simplifies the homepage and moves detailed editorial content to About Us. Contact remains available. No deployment was performed.
 
-App renders a 400vh scroll container and fixed full-screen canvas. The header labels and navigation layout are preserved, with champagne gold on a near-black background.
+## Development
 
-The centerpiece is the supplied, unmodified `Luxurious_WER1_Group_Gold_Logo.webp`, served from `public/images/hero/`. `App.tsx` displays the full native-aspect image in a fixed centered layer. Narrow CSS edge masks blend its outer background into the navy-black page without cropping the logo/platform.
+Use Node 22 (or Node >=20.19).
 
-`HeroImage.tsx` reuses the same image on a camera-aligned silhouette mesh for depth occlusion. Readable cards sit in front of this plane; departing cards pass behind the lettering/platform outline. The full image remains visible underneath the transparent card canvas. No generated lettering, platform, lighting, environment, or GLB is rendered. `FixedCamera.tsx` preserves the existing card camera orientation and framing.
+```sh
+npm ci
+npm run dev
+npm run typecheck
+npm run build
+npx playwright install chromium
+npm run test:e2e
+```
 
-Seven data-driven `ProjectCard3D` instances reuse the Aikyam texture design, perspective, depth testing and enter/read/retreat animation. Each is independent of the static logo centerpiece. All render images are extracted from `wer1 profile.pdf`; provenance and web dimensions are in `public/images/projects/README.md`. Every card uses **Residential + Commercial**, as instructed.
+Build output is `dist/`, with Vite base `/`. No new runtime dependencies were added.
 
-| Project | Side | Global scroll interval |
-| --- | --- | --- |
-| Aikyam | Left | 8–20% |
-| Sinclair Place | Right | 20–32% |
-| Sukhada Apartment | Left | 32–44% |
-| Chinchwad | Right | 44–56% |
-| Marunji | Left | 56–68% |
-| Punawale Phase 1 | Right, wider panel | 68–82% |
-| Punawale Phase 2 | Left, wider panel | 82–96% |
+## Approved branding
 
-Each interval contains entry (0–18%), approach (18–45%), stable reading (45–73%), and depth retreat/fade (73–100%). All images retain their complete source aspect ratio; upcoming cards use a wider presentation. No card remains at the end of the scroll. The original 400vh page / 300vh scrolling distance is unchanged. The logo and camera remain fixed throughout.
+The exact root file `WER1_Logo.png` is imported by the reusable Logo component and used by the header, homepage opening statement, footer, favicon and Apple touch icon. It is a 2084 × 2084 PNG with transparency, near-black #0f0f10 and gold #c4932c. Its complete original canvas and proportions are preserved; no cropping, recoloring, stretching or derived image editing is applied. Production logo bytes match the original SHA-256 checksum. Vite emits a content-hashed URL so browsers receive the new artwork rather than a cached old JPEG.
 
-`ProjectCards3D` prepares only cards near the current scroll position (at most two), including the approaching card. Generated canvas textures are disposed when their card unmounts, and reverse scrolling remounts the correct card using cached static images. Card loading does not suspend or replace the centerpiece. No PDF parsing occurs at runtime.
+Manrope is the primary typeface and Cormorant Garamond is the editorial accent. Latin variable WOFF2 files are locally hosted and bundled with content hashes. Both SIL Open Font Licenses are preserved in `src/assets/fonts/`. Visitors make no external font requests. Darker gold is used for small text to preserve contrast; the original logo gold is used for restrained accents.
 
-## Responsive behavior
+## Homepage content
 
-The approved desktop layout and card values remain the baseline at 1024px and above. `styles/responsive.css` owns tablet (768–1023px) and mobile (below 768px) layout overrides. Compact layouts use stable viewport height, shared spacing tokens, and a DPR cap of 1.25. A short-landscape override keeps the image and card side by side after orientation changes.
+The homepage is organized as hero slideshow → opening statement → project showcase → Our Expertise → Our Philosophy → Why Choose → closing contact CTA.
 
-`features/three/cardLayout.ts` keeps the original desktop coordinates separate from compact card positions. The image occlusion mesh reads the compact image bounds so the supplied WebP and its depth mask remain aligned. Reduced-motion mode retains readable cards with fades, without spatial travel. Touch cards keep a persistent EXPLORE cue and the same project-anchor action.
+The complete approved copy remains in `src/data/company.ts`. The homepage retains the full opening statement and uses concise editorial previews from `src/data/homepage.ts`. Full expertise descriptions, philosophy, values, numbered approach and closing copy are available on `/about`, alongside the company introduction, mission and vision.
 
-The mobile header uses a native modal dialog for focus containment, Escape dismissal, and scroll locking. About and Projects stack on mobile; tablet retains paired columns and wraps the metrics. Existing desktop screenshots, all nine requested viewports, project anchors, touch, orientation changes, and reduced motion are covered by the Playwright suite.
+The five approved Why Choose titles now have short descriptions grounded in the existing company messaging, as requested in the refinement brief. No achievements or project details were added.
+
+The reusable header retains desktop/mobile navigation. About points to `/about`; Home and Projects point to homepage sections; Contact points to `/contact`; Media opens the existing enquiry dialog. Footer navigation includes Home, About, Projects, Expertise and Contact. Project detail links are rendered only when a real detail path is configured; none exist yet.
+
+## Project source and image mapping
+
+`src/data/projects.ts` contains typed id, name, location, projectType, completionYear, status, landArea, totalUnits, description, images and displayOrder, plus media presentation settings.
+
+The listing order is explicit and is never sorted automatically:
+
+| Project | Location | Status | Completion | Image |
+| --- | --- | --- | --- | --- |
+| Sukhada Apartment | Punawale | Completed | 2023 | sukhada-apartment.webp |
+| Sinclair Place | Punawale | Completed | 2024 | sinclair-place.webp |
+| Aikyam | Punawale | Completed | 2025 | aikyam.webp |
+| Marunji | Marunji | Ongoing | Expected 2027 | marunji.webp |
+| Punawale | Punawale | Upcoming | Expected 2027 | Coming Soon placeholder only |
+| Chinchwad | Chinchwad | Ongoing | Expected 2028 | chinchwad.webp |
+
+Every entry uses the client-approved `Residential + Complex` projectType. Descriptions are restrained editorial sentences based only on names, localities, completion years and status.
+
+The hero has a distinct explicit sequence: **Aikyam → Chinchwad → Sinclair Place → Sukhada Apartment → Marunji**. It contains exactly five project images, changes every 5 seconds, uses an 800ms crossfade, loops continuously and supports arrows, dots, keyboard arrows and horizontal touch gestures. Manual interaction restarts the countdown, including selecting the active dot. There is no playback toggle or hover/focus pause. StrictMode cleanup retains one timer. Reduced-motion settings disable animation while keeping automatic advancement.
+
+Existing served WebP copies at `public/media/projects/` match the originals in `assets/projects/` byte-for-byte. No project asset was moved, renamed, overwritten or deleted in this update. ProjectMedia provides a consistent missing-image fallback. Punawale has an empty image array, is absent from the hero and displays a neutral branded Coming Soon visual with its name and expected completion. No historical Punawale photograph is referenced or requested by the app.
+
+## Measurement verification
+
+The complete `wer1 profile.pdf` was inspected. It contains no total-unit counts and no land-area figures for the five named completed/ongoing projects. Its two different upcoming Punawale specifications cannot be combined or mapped to the single public entry without client confirmation.
+
+All six entries therefore keep landArea and totalUnits as null and display **Details Coming Soon**. Residential floor area is never substituted for unit counts. The historical measurements and original PDF classifications are retained outside the public content model in `assets/PROJECT_SOURCE_NOTES.md`.
+
+## Contact
+
+The dedicated `/contact` page and footer use the approved address; the homepage closing CTA links to Contact without repeating these details:
+
+VTP Altitude, Aundh–Ravet BRTS Road, Wakad, Pune – 411033, Maharashtra, India.
+
+Both phones (+91 9011881133 and +91 7887700722) are click-to-call. The published email is wer1infra@gmail.com. The proposed enquiry@wer1group.in address is stored separately as unverified and is not published.
+
+Instagram is @wer1_group at the exact client-provided URL. Links use a recognizable icon, open in a new tab and include noopener/noreferrer. No follower counts or posts are fabricated. Contact actions open email/call links; no backend enquiry delivery is claimed.
+
+## Routing and Cloudflare
+
+Build command remains `npm run build`; output remains `dist/`; the deployment project and domain are unchanged. Direct `/contact` and `/about` requests work in Vite production preview. Cloudflare Pages' documented SPA fallback applies because there is no top-level `dist/404.html`: https://developers.cloudflare.com/pages/configuration/serving-pages/#single-page-application-spa-rendering.
+
+Contact and About routes include HTML revalidation rules in `public/_headers`. Existing security headers, stable media revalidation and immutable hashed-asset caching remain. Local preview does not emulate Cloudflare response headers; live verification awaits deployment approval.
+
+## Previous brand/content update — changed files
+
+Modified:
+- `src/data/company.ts`, `src/data/projects.ts`
+- `src/components/Header.tsx`, `Footer.tsx`, `ProjectCard.tsx`, `ProjectFacts.tsx`, `ProjectMedia.tsx`
+- `src/sections/AboutSection.tsx`, `ServicesSection.tsx`, `WhyChooseSection.tsx`, `ContactSection.tsx`
+- `src/pages/HomePage.tsx`, `src/App.tsx`
+- `src/styles/global.css`, `src/styles/homepage.css`
+- `index.html`, `public/_headers`
+- `tests/homepage.spec.ts`, `tests/homepage-projects.spec.ts`, `README.md`
+
+Created:
+- `src/components/Logo.tsx`, `InstagramLink.tsx`, `MediaDialog.tsx`, `PageMetadata.tsx`
+- `src/sections/PhilosophySection.tsx`, `ValuesSection.tsx`, `ApproachSection.tsx`, `ClosingSection.tsx`
+- `src/pages/ContactPage.tsx`, `src/vite-env.d.ts`
+- Two WOFF2 font files and their licenses in `src/assets/fonts/`
+- `assets/PROJECT_SOURCE_NOTES.md`
+
+The supplied original `WER1_Logo.png` is used unchanged. Git history and archived assets are preserved.
+
+## Verification and remaining input
+
+`npm run build` passes TypeScript and Vite production compilation. All 25 browser checks pass against production output, including all seven widths (1920, 1440, 1366, 1024, 768, 430, 390), navigation, brand image proportions, five-slide order and wraparound, manual countdown resets, 800ms fade, reduced motion, six-project filter order, accurate facts, pending measurement fields, asset mapping, image fallbacks, no Punawale/old-logo requests, safe Instagram links, direct Contact and About URLs, preservation of complete editorial copy, cross-page anchor navigation and visible content without IntersectionObserver. Normal browsing produces no console errors or missing assets. Screenshots are saved under ignored `test-results/`.
+
+Remaining client input: all six land areas and unit counts; precise attribution of the historical Punawale records; verification if the proposed business email is activated; approved content for other internal pages. Higher-resolution project originals would improve large-screen image sharpness.
+
+Recommended next step: review the refined homepage and About page, then supply missing project facts and authorize Projects detail pages. Deployment requires separate approval.
+
+## Homepage refinement
+
+Responsive spacing and type tokens live in `src/styles/refinements.css`. The introduction has balanced columns and a compact original logo. Expertise uses five equal-width editorial rows. Sinclair Place's existing image anchors the philosophy preview. Why Choose uses readable headings with supporting descriptions. Detailed Values and Approach sections are reused on About rather than repeated on the homepage.
+
+The closing section retains its approved headline and dark background, with one prominent Contact CTA. Full contact details and Instagram remain in the footer alongside new navigation.
+
+Scroll enhancement in `src/hooks/useScrollReveal.ts` animates a small number of section introductions only when visible. Content is visible even without IntersectionObserver; reduced-motion preferences disable animations. Cross-page fragment links resolve after the React page and local fonts load.
+
+Created: `src/data/homepage.ts`, `src/hooks/useScrollReveal.ts`, `src/pages/AboutPage.tsx`, `src/styles/refinements.css`, `tests/editorial.spec.ts`.
+
+Modified: App/main entry points, HomePage, Header, Footer, AboutSection, ServicesSection, PhilosophySection, WhyChooseSection, ClosingSection, existing browser tests, About cache rules and this documentation. The original logo, project data, carousel implementation and all project assets remain unchanged.

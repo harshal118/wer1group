@@ -1,0 +1,92 @@
+[
+  {
+    "original": "WER1 Logo Deliverables- JPEG-20.jpg",
+    "preserved": "assets/brand/WER1 Logo Deliverables- JPEG-20.jpg",
+    "sha256": "c49e5d99a35c73082654e4a61b8fe45ce80f9124c7ff017104b99f6434474f77"
+  },
+  {
+    "original": "reference_logo.png",
+    "preserved": "assets/archive/reference_logo.png",
+    "sha256": "500840328a5658ae0d7158a7d1da2672a60466e34570b01b47abcfa5a0f440af"
+  },
+  {
+    "original": "Luxurious_WER1_Group_Gold_Logo.webp",
+    "preserved": "assets/archive/Luxurious_WER1_Group_Gold_Logo.webp",
+    "sha256": "9e5b220b26a59109f48e3a683431de0f1f115eb504982b020d6d0a9dcd397f6a"
+  },
+  {
+    "original": "OLD_Luxurious_WER1_Group_Gold_Logo.webp",
+    "preserved": "assets/archive/OLD_Luxurious_WER1_Group_Gold_Logo.webp",
+    "sha256": "8226a8be37751fd18d32ebf640605bfb79f732f10d39417adc45607dc79eb0eb"
+  },
+  {
+    "original": "public/apple-touch-icon.png",
+    "preserved": "assets/archive/public/apple-touch-icon.png",
+    "sha256": "2c039de1de803e32fa75fbd6483f291976c4ce9df32b31f391a6a913a7ad4512"
+  },
+  {
+    "original": "public/favicon-32x32.png",
+    "preserved": "assets/archive/public/favicon-32x32.png",
+    "sha256": "bc12586b8502d58fcb5723b255cae10f100ab1ab069e93892c4dd7ee5b46233c"
+  },
+  {
+    "original": "public/models/Darshile-test-030-v2.glb",
+    "preserved": "assets/archive/public/models/Darshile-test-030-v2.glb",
+    "sha256": "ad44c4af2685642f861553fe47b3920dd9673ac38da9b9cf9bef4966995bf3ea"
+  },
+  {
+    "original": "public/images/projects/marunji.webp",
+    "preserved": "assets/projects/marunji.webp",
+    "sha256": "425fb65036cffa6561dec90bd6eafe92b67ec32e641af0f27af0a921986377c8"
+  },
+  {
+    "original": "public/images/projects/punawale-phase-2.webp",
+    "preserved": "assets/projects/punawale-phase-2.webp",
+    "sha256": "0df5a3a14989e0492d10e53d868b34694daa85aab4b80391a1bb731f1150d14d"
+  },
+  {
+    "original": "public/images/projects/sinclair-place.webp",
+    "preserved": "assets/projects/sinclair-place.webp",
+    "sha256": "52888e4750fb099f66ffdb567b4fab3953a80c1390b93f634ba370ae47343e97"
+  },
+  {
+    "original": "public/images/projects/sukhada-apartment.webp",
+    "preserved": "assets/projects/sukhada-apartment.webp",
+    "sha256": "7310f6f8c505f14e987fe329a19c8d95ec18b79948ece34a93f4f62372e7440a"
+  },
+  {
+    "original": "public/images/projects/chinchwad.webp",
+    "preserved": "assets/projects/chinchwad.webp",
+    "sha256": "06104046ad4f6e841f5136a677a93830cee8f3b9c802a1e059273b1d67804baf"
+  },
+  {
+    "original": "public/images/projects/punawale-phase-1.webp",
+    "preserved": "assets/projects/punawale-phase-1.webp",
+    "sha256": "1ee84a2cb00530975b5f64b1cf615de72144f3ea4deb533e39e7c36206e53025"
+  },
+  {
+    "original": "public/images/projects/aikyam.webp",
+    "preserved": "assets/projects/aikyam.webp",
+    "sha256": "5e6baeba107d946498857ea2eceb04c5f20724c9ef3af5e7371017e1676e90b9"
+  },
+  {
+    "original": "public/images/hero/Luxurious_WER1_Group_Gold_Logo.webp",
+    "preserved": "assets/archive/public/images/hero/Luxurious_WER1_Group_Gold_Logo.webp",
+    "sha256": "9e5b220b26a59109f48e3a683431de0f1f115eb504982b020d6d0a9dcd397f6a"
+  },
+  {
+    "original": "src/assets/fonts/LICENSE",
+    "preserved": "assets/archive/src/assets/fonts/LICENSE",
+    "sha256": "35e8279356d7890871c4fce804d157e3f21456a7311ef2caab5cb4705c71b6bd"
+  },
+  {
+    "original": "src/assets/fonts/logo-regular.json",
+    "preserved": "assets/archive/src/assets/fonts/logo-regular.json",
+    "sha256": "8def317ac9b230f4dc00dcdaa7b807f0976fcf41a60e99df3f2b400a5463ebe6"
+  },
+  {
+    "original": "src/assets/fonts/logo-bold.json",
+    "preserved": "assets/archive/src/assets/fonts/logo-bold.json",
+    "sha256": "86038cc2c4fe056748aaefdb3aef1e7b7f09a012bd396d9b062442fb52bef336"
+  }
+]

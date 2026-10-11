@@ -1,0 +1,25 @@
+.about.opening-statement { align-items: start; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); }
+.opening-statement .brand-statement { flex-wrap: wrap; gap: 12px 20px; margin-bottom: 28px; }
+ /* Account for the original logo's transparent canvas without cropping or resizing it. */
+.opening-statement .brand-statement .brand-logo { margin-block: -38px; }
+.opening-statement .brand-statement .supporting-statement { max-width: none; white-space: nowrap; }
+.opening-statement .brand-story-button {
+  position: relative; background: color-mix(in srgb, var(--brand-gold) 6%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--brand-gold) 45%, transparent);
+  border-radius: 3px; color: var(--ink); padding: 16px 24px; gap: 24px; font-weight: 550;
+}
+.opening-statement .brand-story-button > span, .opening-statement .brand-story-arrow { position: relative; z-index: 1; }
+.opening-statement .brand-story-button .brand-story-border { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); pointer-events: none; transform: none; transition: none; }
+.opening-statement .brand-story-border path { stroke: var(--brand-gold); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 500ms ease; }
+.opening-statement .brand-story-button:is(:hover, :focus-visible) { background: color-mix(in srgb, var(--brand-gold) 14%, var(--surface)); color: var(--ink); }
+.opening-statement .brand-story-button:is(:hover, :focus-visible) .brand-story-border path { stroke-dashoffset: 0; transition-duration: 750ms; transition-timing-function: ease-in-out; }
+.opening-statement .brand-story-button:is(:hover, :focus-visible) .brand-story-arrow { transform: translate(5px, -5px); }
+@media (max-width: 768px) {
+  .about.opening-statement { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .opening-statement .brand-statement .supporting-statement { flex-basis: 100%; white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .opening-statement .brand-story-button:is(:hover, :focus-visible) .brand-story-arrow { transform: none; }
+}

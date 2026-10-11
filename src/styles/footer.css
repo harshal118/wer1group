@@ -1,0 +1,29 @@
+.champagne-closing { background: #eee8dc; color: #171717; padding-block: clamp(88px, 7vw, 112px); }
+.champagne-closing .footer-heading h2 { max-width: none; font: 500 clamp(36px, 3.25vw, 52px)/1.15 var(--font-editorial); letter-spacing: -.025em; text-wrap: balance; }
+.champagne-closing .footer-heading > p { max-width: 650px; margin-top: 24px; font-size: 15px; line-height: 1.8; color: #55514a; }
+.site-footer.unified-footer { background: #000; color: #f5f3ed; border: 0; }
+.unified-footer .footer-grid { padding-block: clamp(48px, 4vw, 56px); align-items: start; grid-template-columns: minmax(0, 20fr) minmax(0, 17fr) minmax(0, 38fr) minmax(0, 25fr); gap: 24px; }
+.unified-footer .footer-white-logo { width: 180px; height: auto; object-fit: contain; margin-block: -40px -32px; }
+.unified-footer .footer-brand > a { display: block; width: fit-content; }
+.unified-footer .footer-brand p { margin-top: 0; color: #c8c6be; font-size: 12px; line-height: 1.8; }
+.unified-footer .footer-grid .eyebrow { color: #d5b367; }
+.unified-footer .footer-grid address, .unified-footer .footer-bottom { color: #c8c6be; }
+.unified-footer .footer-navigation a, .unified-footer .footer-contacts a { color: #f5f3ed; }
+.unified-footer .footer-bottom { border-color: #ffffff26; }
+.site-footer.unified-footer a:hover { color: #e1bf76; }
+.unified-footer a:focus-visible { outline-color: #e1bf76; }
+.unified-footer .footer-visit { min-width: 0; }
+.footer-visit iframe { display: block; width: 100%; height: 160px; margin-top: 16px; border: 0; border-radius: 3px; background: #171717; }
+.footer-visit iframe:focus-visible { outline: 2px solid #e1bf76; outline-offset: 4px; }
+@media (min-width: 1440px) {
+  .champagne-closing .footer-heading h2 { white-space: nowrap; }
+}
+@media (max-width: 1024px) {
+  .unified-footer .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .champagne-closing { padding-block: clamp(64px, 7vw, 80px); }
+}
+@media (max-width: 600px) {
+  .champagne-closing { padding-block: clamp(52px, 14vw, 64px); }
+  .unified-footer .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .unified-footer .footer-navigation { display: block; }
+}
