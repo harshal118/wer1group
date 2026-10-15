@@ -8,7 +8,7 @@ for (const width of [1920,1440,1024,768,430,390]) {
     const main = page.locator('main');
     await expect(main.locator('h1')).toHaveText("Let's Build Something Meaningful.");
     await expect(main.locator('h2')).toHaveText(['Our Office','Start a Conversation']);
-    await expect(main.locator('address')).toHaveText('VTP Altitude,Aundh–Ravet BRTS Road,Wakad, Pune – 411033,Maharashtra, India.');
+    await expect(main.locator('address')).toHaveText('VTP Altitude, 5th Floor, Office No. 526,Aundh–Ravet BRTS Road, Wakad,Pune – 411033, Maharashtra, India.');
     await expect(main.locator('a[href^="tel:"]')).toHaveCount(2);
     await expect(main.getByRole('link',{name:'+91 9011881133',exact:true})).toHaveAttribute('href','tel:+919011881133');
     await expect(main.getByRole('link',{name:'+91 7887700722',exact:true})).toHaveAttribute('href','tel:+917887700722');

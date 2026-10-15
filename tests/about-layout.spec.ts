@@ -30,27 +30,25 @@ for (const width of [1920, 1440, 1024, 768, 430, 390]) {
 }
 
 
-test('desktop parallax travels 80–140px without exposing edges', async ({ page }) => {
+test('desktop parallax travels 220px without exposing edges or moving the banner', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/about');
   const image = page.locator('.wer1-about-banner-image');
+  const banner = page.locator('.wer1-about-banner');
+  const geometry = await banner.evaluate(el => ({ top: el.getBoundingClientRect().top + scrollY, height: el.getBoundingClientRect().height }));
   const translate = () => image.evaluate(element => new DOMMatrix(getComputedStyle(element).transform).m42);
-  const before = await translate();
-  for (const top of [100, 200, 300, 450]) {
-    await page.evaluate(top => window.scrollTo({ top, behavior: 'instant' }), top);
-    await expect.poll(translate).toBeCloseTo(Math.max(-70, Math.min(70, (top - 120) * .4)), 0);
+  for (const progress of [0, .25, .5, .75, .99, .5, 0]) {
+    await page.evaluate(top => window.scrollTo({ top, behavior: 'instant' }), geometry.top + progress * geometry.height);
+    await expect.poll(translate).toBeCloseTo(-110 + progress * 220, 0);
     const layer = (await image.boundingBox())!;
-    const banner = (await page.locator('.wer1-about-banner').boundingBox())!;
-    expect(layer.y).toBeLessThanOrEqual(banner.y);
-    expect(layer.y + layer.height).toBeGreaterThanOrEqual(banner.y + banner.height);
+    const bounds = (await banner.boundingBox())!;
+    expect(layer.y).toBeLessThanOrEqual(bounds.y);
+    expect(layer.y + layer.height).toBeGreaterThanOrEqual(bounds.y + bounds.height);
+    await expect(banner).toHaveCSS('transform', 'none');
   }
-  const travel = (await translate()) - before;
-  expect(travel).toBeGreaterThanOrEqual(80);
-  expect(travel).toBeLessThanOrEqual(140);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(image).toHaveCSS('transform', 'none');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.setViewportSize({ width: 390, height: 900 });
   await expect(image).toHaveCSS('transform', 'none');
 });
-

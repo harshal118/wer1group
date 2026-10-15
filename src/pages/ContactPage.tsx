@@ -11,7 +11,7 @@ import '../styles/contact.css';
 export function ContactPage() {
   const media = useRef<HTMLDialogElement>(null);
   return <div>
-    <PageMetadata title="Contact WER1 Group | Constructing Happiness" description="Contact WER1 Group at VTP Altitude, Wakad, Pune. Find our verified phone numbers, email and Instagram account." path="/contact" />
+    <PageMetadata title="Contact WER1 Group | Constructing Happiness" description={`Contact WER1 Group at ${company.contact.address.join(' ')} Find our verified phone numbers, email and Instagram account.`} path="/contact" />
     <a className="skip-link" href="#main">Skip to content</a><Header currentPage="contact" onMedia={() => media.current?.showModal()} />
     <main id="main" className="contact-page premium-contact"><section className="container contact-page-intro" aria-labelledby="contact-page-title">
       <header className="contact-introduction">

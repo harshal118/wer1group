@@ -12,7 +12,7 @@ export function Footer({ includeClosing = false }: { includeClosing?: boolean })
     <div className="footer-brand"><a href="/#home" aria-label="WER1 Group home"><img className="footer-white-logo" src="/media/brand/WER1_Logo_white_text.jpg" width={2084} height={2085} alt="WER1 Group" loading="lazy" decoding="async" /></a><p>{company.tagline}.</p></div>
     <nav className="footer-navigation" aria-label="Footer navigation"><p className="eyebrow">Explore</p><a href="/#home">Home</a><a href="/about">About Us</a><a href="/#projects">Projects</a><a href="/about#expertise">Our Expertise</a><a href="/contact">Contact Us</a></nav>
     <div className="footer-visit"><p className="eyebrow">Visit us</p>
-      <address>{company.contact.address.slice(0, 2).join(" ")}<br />{company.contact.address.slice(2).join(" ")}</address>
+      <address>{company.contact.address.map(line => <span key={line}>{line}</span>)}</address>
       <iframe title="WER1 Group office location — VTP Altitude, Wakad, Pune" src="https://www.google.com/maps?q=VTP%20Altitude%2C%20Aundh%20Ravet%20BRTS%20Road%2C%20Wakad%2C%20Pune&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
     </div>
     <div className="footer-contacts"><p className="eyebrow">Connect with us</p><a href={`mailto:${company.contact.email}`}>{company.contact.email}</a>{company.contact.phones.map(phone => <a key={phone.href} href={phone.href}>{phone.display}</a>)}<InstagramLink multicolor /></div>

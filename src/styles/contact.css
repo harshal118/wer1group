@@ -1,11 +1,14 @@
 .premium-contact .contact-page-intro { padding-block: clamp(40px, 4.5vw, 64px) clamp(52px, 6vw, 80px); }
-.premium-contact .contact-introduction { max-width: 880px; }
+.premium-contact .contact-introduction { max-width: 880px; margin-inline: auto; text-align: center; }
+.premium-contact .contact-introduction h1 { margin-inline: auto; }
 .premium-contact .eyebrow { color: var(--accent); margin-bottom: 18px; }
 .premium-contact h1 { font: 500 clamp(40px, 4.5vw, 64px)/1.08 var(--font-editorial); letter-spacing: -.025em; max-width: 850px; }
-.premium-contact .contact-support { margin-top: 22px; max-width: 62ch; color: var(--muted); font-size: 15px; line-height: 1.85; }
-.premium-contact .contact-page-grid { margin-top: clamp(32px, 4vw, 48px); padding-block: clamp(28px, 3.5vw, 44px) 0; border-top: 1px solid var(--line); gap: clamp(32px, 5vw, 72px); }
-.premium-contact .contact-page-grid > section { min-width: 0; }
-.premium-contact .contact-conversation { padding-left: clamp(32px, 5vw, 72px); border-left: 1px solid var(--line); }
+.premium-contact .contact-support { margin-top: 22px; margin-inline: auto; max-width: 700px; color: var(--muted); font-size: 15px; line-height: 1.85; }
+.premium-contact .contact-page-grid { margin-top: clamp(32px, 4vw, 48px); padding-block: clamp(28px, 3.5vw, 44px) 0; border-top: 1px solid var(--line); gap: clamp(32px, 5vw, 72px) 0; }
+.premium-contact .contact-page-grid > section { display: flex; flex-direction: column; align-items: center; min-width: 0; padding-inline: clamp(16px, 2.5vw, 36px); text-align: center; }
+.premium-contact .contact-conversation { border-left: 1px solid var(--line); }
+.premium-contact .contact-page-links { display: flex; flex-direction: column; align-items: center; max-width: 100%; margin-inline: auto; }
+.premium-contact .contact-page-grid .brand-story-button { margin-inline: auto; }
 .premium-contact .contact-page-grid h2 { font: 500 clamp(30px, 3vw, 40px)/1.15 var(--font-editorial); margin-bottom: 22px; }
 .premium-contact address { font-size: 15px; line-height: 1.95; }
 .premium-contact .contact-map-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 16px; font-size: 13px; color: var(--accent); }
@@ -27,6 +30,7 @@
 @keyframes contact-enter { from { opacity: .7; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @media (max-width: 600px) {
   .premium-contact .contact-page-grid { grid-template-columns: 1fr; }
+  .premium-contact .contact-page-grid > section { padding-inline: 0; }
   .premium-contact .contact-conversation { border-left: 0; border-top: 1px solid var(--line); padding: 30px 0 0; }
 }
 @media (prefers-reduced-motion: reduce) {

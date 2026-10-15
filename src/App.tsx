@@ -1,3 +1,4 @@
+import { ProjectsPage } from './pages/ProjectsPage';
 import { HomePage } from './pages/HomePage';
 import { ContactPage } from './pages/ContactPage';
 import { AboutPage } from './pages/AboutPage';
@@ -15,5 +16,5 @@ export default function App() {
     return () => { cancelled = true; };
   }, []);
   const path = window.location.pathname.replace(/\/$/, '');
-  return path === '/about' ? <AboutPage /> : path === '/contact' ? <ContactPage /> : <HomePage />;
+  return path === '/projects' ? <ProjectsPage /> : path === '/about' ? <AboutPage /> : path === '/contact' ? <ContactPage /> : <HomePage />;
 }

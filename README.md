@@ -64,7 +64,7 @@ All six entries therefore keep landArea and totalUnits as null and display **Det
 
 The dedicated `/contact` page and footer use the approved address; the homepage closing CTA links to Contact without repeating these details:
 
-VTP Altitude, Aundh–Ravet BRTS Road, Wakad, Pune – 411033, Maharashtra, India.
+VTP Altitude, 5th Floor, Office No. 526, Aundh–Ravet BRTS Road, Wakad, Pune – 411033, Maharashtra, India.
 
 Both phones (+91 9011881133 and +91 7887700722) are click-to-call. The published email is wer1infra@gmail.com. The proposed enquiry@wer1group.in address is stored separately as unverified and is not published.
 

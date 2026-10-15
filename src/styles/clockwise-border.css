@@ -1,0 +1,12 @@
+.clockwise-border { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); pointer-events: none; transform: none; transition: none; }
+.clockwise-border path { stroke: var(--brand-gold); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 500ms ease; }
+/* The original CTA trigger and timing are unchanged. */
+.opening-statement .brand-story-button:is(:hover, :focus-visible) .brand-story-border path { stroke-dashoffset: 0; transition-duration: 750ms; transition-timing-function: ease-in-out; }
+.project-card > .project-card-border { z-index: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover > .clockwise-border path { stroke-dashoffset: 0; transition-duration: 750ms; transition-timing-function: ease-in-out; }
+}
+.project-card:is(:focus-visible, :has(:focus-visible)) > .clockwise-border path { stroke-dashoffset: 0; transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .project-card > .clockwise-border path { transition: none; }
+}

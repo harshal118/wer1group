@@ -1,0 +1,15 @@
+/* Remains in document flow; shared by every page without changing header sizing. */
+header.site-header { position: sticky; top: 0; z-index: 50; overflow: visible; }
+
+/* Keep the existing 24px scroll padding, plus the actual navigation height.
+   These selectors supersede the older fixed About/Projects anchor offsets. */
+#root :is(main[id], main [id], footer[id]) { scroll-margin-top: var(--site-header-height, 120px); }
+
+@media (max-width: 768px) {
+  header.site-header .navigation.is-open {
+    max-height: calc(100vh - var(--site-header-height, 96px));
+    max-height: calc(100dvh - var(--site-header-height, 96px));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+}

@@ -64,25 +64,31 @@ test('About introduction flows straight into preserved detailed sections without
   await page.goto('/about');
   await expect(page.getByRole('navigation', { name: 'About page sections' })).toHaveCount(0);
   await expect(page.locator('.wer1-about-section-links, .about-contents')).toHaveCount(0);
-  await expect(page.locator('.wer1-about-introduction + #philosophy')).toHaveCount(1);
+  await expect(page.locator('.wer1-about-introduction + #our-evolution + #philosophy')).toHaveCount(1);
   await expect(page.locator('.wer1-about-introduction-body p')).toHaveCount(2);
+  await expect(page.locator('#approach, [href$="#approach"]')).toHaveCount(0);
   await expect(page.locator('.wer1-about-construction img')).toHaveAttribute('src', '/media/about/construct.jpg');
-  for (const id of ['philosophy', 'expertise', 'values', 'approach']) await expect(page.locator(`#${id}`)).toHaveCount(1);
+  for (const id of ['philosophy', 'values', 'expertise']) await expect(page.locator(`#${id}`)).toHaveCount(1);
 });
 
 for (const width of [1920, 1440, 1024, 768, 430, 390]) {
-  test(`four preview cards at ${width}px`, async ({ page }) => {
+  test(`three preview cards at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
     const section = page.locator('#projects + #about-preview');
     await expect(section).toHaveCount(1);
     const cards = section.locator('a');
-    await expect(cards).toHaveCount(4);
+    await expect(cards).toHaveCount(3);
+    await expect(cards.locator('h2')).toHaveText(['Our Philosophy', 'Our Values', 'Our Expertise']);
+    for (const description of await cards.locator('p').allTextContents()) expect(description.trim().split(/\s+/).length).toBeLessThanOrEqual(30);
+    await expect(page.locator('[href$="#approach"], #approach')).toHaveCount(0);
+    await expect(cards.first().locator('p')).toHaveCSS('text-align', width > 600 ? 'justify' : 'left');
+    await expect(cards.first().locator('p')).toHaveCSS('text-align-last', 'left');
     await section.scrollIntoViewIfNeeded();
     const boxes = await cards.evaluateAll(elements => elements.map(el => { const b = el.getBoundingClientRect(); return { x: b.x, y: b.y, width: b.width, height: b.height }; }));
-    expect(new Set(boxes.map(box => Math.round(box.x))).size).toBe(width > 1100 ? 4 : width > 600 ? 2 : 1);
+    expect(new Set(boxes.map(box => Math.round(box.x))).size).toBe(width > 900 ? 3 : 1);
     expect(Math.max(...boxes.map(b => b.width)) - Math.min(...boxes.map(b => b.width))).toBeLessThan(1);
-    if (width > 1100) expect(new Set(boxes.map(box => Math.round(box.height))).size).toBe(1);
+    expect(new Set(boxes.map(box => Math.round(box.height))).size).toBe(1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await section.screenshot({ path: `test-results/preview-cards-${width}.png` });
   });
@@ -110,7 +116,7 @@ test('only hovered card turns white, resets on leave, and keyboard focus matches
   await expect(cards.nth(1)).toHaveCSS('transform', 'none');
 });
 
-for (const id of ['philosophy', 'expertise', 'values', 'approach']) {
+for (const id of ['philosophy', 'values', 'expertise']) {
   test(`preview navigates to About ${id}, including direct URLs`, async ({ page }) => {
     await page.goto('/');
     await page.locator(`.about-preview-card[href="/about#${id}"]`).click();

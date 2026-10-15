@@ -1,6 +1,7 @@
 .champagne-closing { background: #eee8dc; color: #171717; padding-block: clamp(88px, 7vw, 112px); }
+.champagne-closing .footer-heading { text-align: center; margin-inline: auto; }
 .champagne-closing .footer-heading h2 { max-width: none; font: 500 clamp(36px, 3.25vw, 52px)/1.15 var(--font-editorial); letter-spacing: -.025em; text-wrap: balance; }
-.champagne-closing .footer-heading > p { max-width: 650px; margin-top: 24px; font-size: 15px; line-height: 1.8; color: #55514a; }
+.champagne-closing .footer-heading > p { max-width: 650px; margin-top: 24px; margin-inline: auto; font-size: 15px; line-height: 1.8; color: #55514a; }
 .site-footer.unified-footer { background: #000; color: #f5f3ed; border: 0; }
 .unified-footer .footer-grid { padding-block: clamp(48px, 4vw, 56px); align-items: start; grid-template-columns: minmax(0, 20fr) minmax(0, 17fr) minmax(0, 38fr) minmax(0, 25fr); gap: 24px; }
 .unified-footer .footer-white-logo { width: 180px; height: auto; object-fit: contain; margin-block: -40px -32px; }

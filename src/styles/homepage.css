@@ -10,8 +10,8 @@
 .project-filter button[aria-pressed='true'] { color: var(--accent); border-color: var(--accent); }
 .project-filter button:hover { color: var(--accent); }
 .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
-.project-card { min-width: 0; border: 1px solid var(--line); background: #fff; transition: box-shadow 300ms ease, border-color 300ms ease; }
-.project-card:hover { border-color: #c9b78b; box-shadow: 0 12px 30px #0f0f100a; }
+.project-card { position: relative; min-width: 0; border: 1px solid var(--line); background: #fff; transition: box-shadow 300ms ease, border-color 300ms ease; }
+.project-card:hover { box-shadow: 0 12px 30px #0f0f100a; }
 .project-card-visual { position: relative; aspect-ratio: 4/3; overflow: hidden; background: #646b6d; }
 .project-card-visual img { transition: transform 500ms ease; }
 .project-card:hover .project-card-visual img { transform: scale(1.03); }
@@ -27,8 +27,8 @@
 .service-card { grid-column: span 2; padding: 30px; border: 1px solid var(--line); background: #fff; }
 .service-card:nth-last-child(-n+2) { grid-column: span 3; }
 .service-index { display: block; color: var(--accent); font-size: 12px; letter-spacing: .12em; margin-bottom: 30px; }
-.service-card h3, .values-grid h3, .approach-grid h3 { font: 500 29px/1.2 var(--font-editorial); margin: 0 0 18px; }
-.service-card p, .values-grid p, .approach-grid p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+.service-card h3, .values-grid h3 { font: 500 29px/1.2 var(--font-editorial); margin: 0 0 18px; }
+.service-card p, .values-grid p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
 .philosophy-section { background: #fff; border-block: 1px solid var(--line); }
 .editorial-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(40px, 8vw, 120px); }
 .editorial-copy { max-width: 640px; color: var(--muted); font-size: 15px; line-height: 1.95; }
@@ -36,10 +36,6 @@
 .values-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 70px; }
 .values-grid article { border-top: 1px solid var(--line); padding-top: 25px; }
 .values-grid article:last-child { max-width: 570px; }
-.approach-section { background: #fff; border-block: 1px solid var(--line); }
-.approach-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 30px; }
-.approach-grid li { border-top: 1px solid var(--line); padding-top: 25px; }
-.stage-number { display: block; font-size: 12px; color: var(--accent); letter-spacing: .12em; margin-bottom: 26px; }
 .why-section { padding-block: clamp(64px, 6vw, 96px); }
 .credibility-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 26px; }
 .credibility-pillar { border-top: 2px solid var(--brand-gold); padding-top: 25px; }
@@ -58,7 +54,6 @@
   .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .service-card, .service-card:nth-last-child(-n+2) { grid-column: auto; }
   .service-card:last-child { grid-column: 1/-1; }
-  .approach-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px; }
   .credibility-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .contact-layout { gap: 40px; }
   .contact-options { padding-left: 30px; }
@@ -70,7 +65,7 @@
   .credibility-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 600px) {
-  .project-grid, .service-grid, .values-grid, .approach-grid, .contact-layout { grid-template-columns: 1fr; }
+  .project-grid, .service-grid, .values-grid, .contact-layout { grid-template-columns: 1fr; }
   .section-heading { margin-bottom: 32px; }
   .project-filter { gap: 8px 18px; }
   .project-grid { gap: 30px; }
@@ -96,4 +91,13 @@
 @media (prefers-reduced-motion: no-preference) {
   .opening-statement h1 { animation: content-enter 700ms ease both; }
   .opening-statement .about-copy > p:not(.eyebrow) { animation: content-enter 700ms ease 100ms both; }
+}
+
+/* Descriptive Home copy only; single-line final lines stay left aligned. */
+#home main :is(.about-copy > p, .project-description, .about-preview-card > p, .credibility-pillar > p) {
+  text-align: justify;
+  text-align-last: left;
+}
+@media (max-width: 600px) {
+  #home main :is(.about-copy > p, .project-description, .about-preview-card > p, .credibility-pillar > p) { text-align: left; }
 }

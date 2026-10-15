@@ -1,0 +1,25 @@
+.wer1-mission-vision { padding-block: var(--section-space); background: var(--surface); color: var(--ink); }
+.wer1-mission-vision .mission-vision-heading { margin-bottom: var(--section-gap); }
+.wer1-mission-vision .eyebrow { color: var(--accent); margin-bottom: 16px; }
+.wer1-mission-vision h2 { margin: 0 0 16px; font: 500 var(--heading-size)/1.12 var(--font-editorial); letter-spacing: -.025em; }
+.wer1-mission-vision .mission-vision-support { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.85; }
+.wer1-mission-vision .mission-vision-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 2.5vw, 36px); }
+.wer1-mission-vision .mission-vision-card { min-width: 0; padding: clamp(32px, 4vw, 56px); border-radius: 6px; background: #f0eae0; }
+.wer1-mission-vision .mission-vision-icon { display: block; width: 36px; height: 36px; color: var(--brand-gold); margin-bottom: 28px; }
+.wer1-mission-vision h3 { margin: 0 0 18px; font: 500 clamp(30px, 2.8vw, 40px)/1.15 var(--font-editorial); letter-spacing: -.02em; }
+.wer1-mission-vision .mission-vision-card p { margin: 0; font-family: var(--font-body); font-size: 15px; line-height: 1.85; text-align: justify; text-align-last: left; }
+@media (max-width: 768px) {
+  .wer1-mission-vision .mission-vision-grid { grid-template-columns: 1fr; }
+  .wer1-mission-vision .mission-vision-card { padding: 32px; }
+}
+@media (max-width: 600px) {
+  .wer1-mission-vision .mission-vision-card { padding: 28px; }
+  .wer1-mission-vision .mission-vision-card p { text-align: left; }
+  .wer1-mission-vision .mission-vision-icon { margin-bottom: 24px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wer1-about-page .wer1-mission-vision .mission-vision-card { --about-motion-distance: 50px; --about-motion-duration: 850ms; }
+  .wer1-mission-vision .about-motion-pending .mission-vision-icon { transform: scale(.85); }
+  .wer1-mission-vision .about-motion-entered .mission-vision-icon { animation: purpose-icon-enter 850ms var(--about-motion-ease) var(--about-motion-delay, 0ms) both; }
+}
+@keyframes purpose-icon-enter { from { transform: scale(.85); } to { transform: scale(1); } }

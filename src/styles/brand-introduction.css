@@ -1,5 +1,8 @@
-.about.opening-statement { align-items: start; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); }
-.opening-statement .brand-statement { flex-wrap: wrap; gap: 12px 20px; margin-bottom: 28px; }
+.about.opening-statement { align-items: start; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); column-gap: clamp(32px, 5vw, 80px); row-gap: var(--section-gap); padding-block: clamp(40px, 4.2vw, 64px); }
+.opening-statement .brand-statement { flex-wrap: wrap; gap: 12px 20px; margin-bottom: clamp(20px, 2vw, 28px); }
+.opening-statement .about-copy { min-width: 0; padding-bottom: 0; }
+#home main .opening-statement .about-copy > p { text-align: left; }
+.opening-statement .opening-actions { margin-top: clamp(20px, 2vw, 26px); }
  /* Account for the original logo's transparent canvas without cropping or resizing it. */
 .opening-statement .brand-statement .brand-logo { margin-block: -38px; }
 .opening-statement .brand-statement .supporting-statement { max-width: none; white-space: nowrap; }
@@ -10,9 +13,7 @@
 }
 .opening-statement .brand-story-button > span, .opening-statement .brand-story-arrow { position: relative; z-index: 1; }
 .opening-statement .brand-story-button .brand-story-border { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); pointer-events: none; transform: none; transition: none; }
-.opening-statement .brand-story-border path { stroke: var(--brand-gold); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 500ms ease; }
 .opening-statement .brand-story-button:is(:hover, :focus-visible) { background: color-mix(in srgb, var(--brand-gold) 14%, var(--surface)); color: var(--ink); }
-.opening-statement .brand-story-button:is(:hover, :focus-visible) .brand-story-border path { stroke-dashoffset: 0; transition-duration: 750ms; transition-timing-function: ease-in-out; }
 .opening-statement .brand-story-button:is(:hover, :focus-visible) .brand-story-arrow { transform: translate(5px, -5px); }
 @media (max-width: 768px) {
   .about.opening-statement { grid-template-columns: 1fr; }
@@ -22,4 +23,14 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .opening-statement .brand-story-button:is(:hover, :focus-visible) .brand-story-arrow { transform: none; }
+}
+
+/* Full-width figures below both introduction columns. */
+.opening-statement .company-statistics { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); margin: 0; text-align: center; }
+.opening-statement .company-statistics > div { display: flex; flex-direction: column; min-width: 0; border-top: 1px solid var(--brand-gold); padding-top: 10px; }
+.opening-statement .company-statistics dt { order: 1; margin-top: 6px; color: var(--muted); font: 400 13px/1.5 var(--font-body); }
+.opening-statement .company-statistics dd { margin: 0; color: var(--ink); font: 600 clamp(2rem, 3vw, 3rem)/1.1 var(--font-body); letter-spacing: -.025em; font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) {
+  .opening-statement .company-statistics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; }
+  .opening-statement .company-statistics > div:last-child { grid-column: 1 / -1; justify-self: center; width: calc((100% - 24px) / 2); }
 }

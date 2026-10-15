@@ -1,3 +1,4 @@
+import { CompanyStatistics } from '../components/CompanyStatistics';
 import { BrandStoryCTA } from '../components/BrandStoryCTA';
 import { company } from '../data/company';
 import { Logo } from '../components/Logo';
@@ -9,5 +10,6 @@ export function AboutSection() {
     <div className="about-copy"><p>{company.opening.introduction}</p>
       <div className="opening-actions"><BrandStoryCTA /></div>
     </div>
+    <CompanyStatistics />
   </section>;
 }

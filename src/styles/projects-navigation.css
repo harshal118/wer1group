@@ -1,0 +1,11 @@
+.navigation .projects-navigation { position: relative; }
+.navigation .projects-navigation > button[aria-current]::after { transform: scaleX(1); }
+.navigation .projects-navigation-options { position: absolute; top: 100%; left: 0; min-width: 190px; margin: 0; padding: 10px 20px; list-style: none; background: #fff; border: 1px solid var(--line); box-shadow: 0 15px 20px #0000000d; }
+.navigation .projects-navigation-options[hidden] { display: none; }
+.navigation .projects-navigation-options a { display: block; min-height: 44px; }
+.projects-page #projects { scroll-margin-top: 120px; }
+@media (max-width: 768px) {
+  .navigation .projects-navigation > button { width: 100%; }
+  .navigation .projects-navigation-options { position: static; min-width: 0; padding: 0 0 0 20px; border: 0; box-shadow: none; }
+  .projects-page #projects { scroll-margin-top: 96px; }
+}

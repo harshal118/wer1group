@@ -6,7 +6,8 @@ for (const width of [1440, 1024, 768, 390]) {
       await page.goto(route);
       const nav = page.getByRole('navigation',{name:'Main navigation'});
       if(width <=768) await page.getByRole('button',{name:'Open navigation'}).click();
-      await expect(nav.locator('a')).toHaveText(['Home','About us','Projects','Our Expertise','Contact us']);
+      await expect(nav.locator(':scope > a')).toHaveText(['Home','About us','Our Expertise','Contact us']);
+      await expect(nav.getByRole('button', {name:'Projects', exact:true})).toBeVisible();
       await expect(nav.getByText('Media',{exact:true})).toHaveCount(0);
       const link = nav.getByRole('link',{name:'Our Expertise'});
       expect(await link.getAttribute('href')).toBe(await page.locator('footer').getByRole('link',{name:'Our Expertise'}).getAttribute('href'));

@@ -29,6 +29,7 @@ export function HeroSlideshow() {
     restartAutoplay();
   };
   const project = heroProjects[active];
+  if (!project) return null;
   return <section id="home-showcase" className="hero" aria-label="WER1 project showcase" aria-roledescription="carousel"
     onKeyDown={event => { if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') { event.preventDefault(); change(current => current + (event.key === 'ArrowRight' ? 1 : -1)); } }}>
     <div className="hero-images" onTouchStart={event => { touch.current = { x: event.touches[0].clientX, y: event.touches[0].clientY }; }} onTouchCancel={() => { touch.current = null; }} onTouchEnd={event => {

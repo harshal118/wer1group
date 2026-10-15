@@ -54,11 +54,7 @@ h1 { font-family: var(--font-editorial); font-size: clamp(38px, 3.9vw, 60px); li
 .about-page-intro h1 { max-width: 850px; margin-bottom: 0; }
 .company-introduction { max-width: 72ch; color: var(--muted); font-size: 16px; line-height: 1.85; }
 .values-grid { gap: 28px 48px; }
-.values-grid p, .approach-grid p { font-size: 14px; line-height: 1.8; }
-.approach-grid { gap: 28px; }
-.approach-grid li { display: grid; grid-template-rows: auto 1fr; align-content: start; }
-.approach-grid h3 { min-height: 2.4em; }
-.stage-number { margin-bottom: 18px; }
+.values-grid p { font-size: 14px; line-height: 1.8; }
 @media (max-width: 1024px) {
   .about { gap: 32px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -75,7 +71,6 @@ h1 { font-family: var(--font-editorial); font-size: clamp(38px, 3.9vw, 60px); li
   .service-card p { grid-column: 2; }
   .story-image-frame { aspect-ratio: 3/2; }
   .why-section .section-heading { margin-bottom: 0; }
-  .approach-grid h3 { min-height: 0; }
 }
 @media (max-width: 600px) {
   .footer-grid { grid-template-columns: 1fr; gap: 26px; }

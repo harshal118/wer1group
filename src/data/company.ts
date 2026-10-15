@@ -10,13 +10,11 @@ export interface Company {
   industry: string;
   tagline: string;
   introduction: string;
-  approach: string;
   mission: string;
   vision: string;
   opening: { label: string; headline: readonly string[]; introduction: string; supportingStatement: string };
   philosophy: { heading: string; paragraphs: readonly string[] };
   values: readonly EditorialItem[];
-  approachStages: readonly EditorialItem[];
   closing: { heading: readonly string[]; body: string; signature: string };
   profilePortfolio: { completed: number; ongoing: number; upcoming: number; note: string };
   services: readonly Service[];
@@ -42,7 +40,6 @@ export const company: Company = {
   industry: 'Real Estate Development',
   tagline: 'Constructing Happiness',
   introduction: 'Founded in 2022, WeR1 Infra is a construction and real estate company delivering residential and commercial developments. With a growing portfolio of completed, ongoing, and upcoming projects, the company combines disciplined execution, collaborative partnerships, and a commitment to quality, transparency, and timely delivery.',
-  approach: 'Trust, transparency and timely delivery guide our approach to construction and real estate.',
   mission: 'Building with quality, safety, integrity, and innovation to create lasting value for society through excellence and sustainable development.',
   vision: 'To grow as a trusted construction company recognized for excellence, integrity, innovation, and the successful delivery of landmark projects that contribute to a better future.',
   opening: {
@@ -65,12 +62,6 @@ export const company: Company = {
     { title: 'Responsibility & Safety', description: 'We value responsible construction practices, attention to safety and accountability throughout project execution.' },
     { title: 'Innovation & Progress', description: 'We encourage thoughtful planning and continuous improvement to create developments that respond to evolving needs.' },
     { title: 'Long-Term Value', description: 'We aim to create spaces that serve practical needs, contribute to better living and deliver lasting value to stakeholders.' },
-  ],
-  approachStages: [
-    { title: 'Understand & Plan', description: 'We begin by understanding project requirements, evaluating opportunities and establishing a clear direction for planning and development.' },
-    { title: 'Collaborate & Coordinate', description: 'We work with landowners, customers, consultants and project stakeholders to align objectives and coordinate project requirements.' },
-    { title: 'Execute with Care', description: 'We focus on construction quality, engineering coordination, safety and disciplined execution throughout the development process.' },
-    { title: 'Deliver Lasting Value', description: 'Our goal is to deliver functional, well-planned residential and commercial spaces while maintaining transparency and a focus on long-term value.' },
   ],
   closing: {
     heading: ["We Don't Just Develop Land.", 'We Create Better Ways to Live.'],
@@ -101,7 +92,7 @@ export const company: Company = {
     email: 'wer1infra@gmail.com',
     proposedEmail: { address: 'enquiry@wer1group.in', verified: false },
     enquiryDeliveryConfigured: false,
-    address: ['VTP Altitude,', 'Aundh–Ravet BRTS Road,', 'Wakad, Pune – 411033,', 'Maharashtra, India.'],
+    address: ['VTP Altitude, 5th Floor, Office No. 526,', 'Aundh–Ravet BRTS Road, Wakad,', 'Pune – 411033, Maharashtra, India.'],
     instagram: { handle: '@wer1_group', url: 'https://www.instagram.com/wer1_group?vrfl=amszYmQ3cGVmbnk1' },
   },
   brandStatements: { purpose: 'Building Excellence. Creating Happiness.', aboutHeading: 'Creating spaces built for generations.', contactHeading: 'Together, We Build the Future.' },

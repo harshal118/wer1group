@@ -1,6 +1,6 @@
 /* Isolated to the About banner and introduction; shared tokens remain unchanged. */
 .wer1-about-banner { position: relative; isolation: isolate; overflow: hidden; height: clamp(380px, 30vw, 480px); display: grid; place-items: center; background: var(--ink); color: #fff; }
-.wer1-about-banner-image { position: absolute; z-index: -2; top: -80px; left: 0; width: 100%; height: calc(100% + 160px); max-width: none; object-fit: cover; object-position: 50% 54%; will-change: transform; }
+.wer1-about-banner-image { position: absolute; z-index: -2; top: -120px; left: 0; width: 100%; height: calc(100% + 240px); max-width: none; object-fit: cover; object-position: 50% 54%; will-change: transform; }
 .wer1-about-banner-shade { position: absolute; inset: 0; z-index: -1; background: rgb(0 0 0 / 42%); }
 .wer1-about-banner-content { text-align: center; }
 .wer1-about-banner h1 { color: #fff; font: 500 clamp(48px, 5vw, 76px)/1.08 var(--font-editorial); letter-spacing: -.02em; margin: 0 0 18px; }
@@ -16,12 +16,6 @@
 .wer1-about-introduction-body p + p { margin-top: 22px; }
 .wer1-about-construction { position: relative; overflow: hidden; margin: 0; aspect-ratio: 6/5; background: var(--ink); }
 .wer1-about-construction > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 39% 50%; }
-@media (prefers-reduced-motion: no-preference) {
-  .wer1-about-entered { animation: wer1-about-enter 650ms ease both; }
-  .wer1-about-introduction-body.wer1-about-entered { animation-delay: 100ms; }
-  .wer1-about-construction.wer1-about-entered { animation-delay: 150ms; }
-}
-@keyframes wer1-about-enter { from { opacity: .6; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @media (max-width: 1024px) {
   .wer1-about-introduction { gap: 32px; align-items: start; }
   .wer1-about-construction { aspect-ratio: 4/5; }
@@ -39,5 +33,29 @@
 @media (prefers-reduced-motion: reduce) {
   .wer1-about-banner-image { transform: none !important; will-change: auto; }
 }
-.wer1-about-page :is(#philosophy, #expertise, #services, #values, #approach) { scroll-margin-top: 120px; }
-@media (max-width: 768px) { .wer1-about-banner-image { transform: none !important; will-change: auto; } .wer1-about-page :is(#philosophy, #expertise, #services, #values, #approach) { scroll-margin-top: 96px; } }
+.wer1-about-page :is(#philosophy, #expertise, #services, #values) { scroll-margin-top: 120px; }
+@media (max-width: 768px) { .wer1-about-banner-image { transform: none !important; will-change: auto; } .wer1-about-page :is(#philosophy, #expertise, #services, #values) { scroll-margin-top: 96px; } }
+
+/* Descriptive About copy only; labels, timeline and signatures retain alignment. */
+.wer1-about-page :is(.wer1-about-introduction-body > p, .editorial-copy > p, .service-card > p, .values-grid p, .evolution-heading > p:not(.eyebrow), .evolution-summary > p:not(.evolution-context)) {
+  text-align: justify;
+  text-align-last: left;
+}
+@media (max-width: 600px) {
+  .wer1-about-page :is(.wer1-about-introduction-body > p, .editorial-copy > p, .service-card > p, .values-grid p, .evolution-heading > p:not(.eyebrow), .evolution-summary > p:not(.evolution-context)) { text-align: left; }
+}
+
+/* Scoped motion tokens: visible by default, armed only by a working JS controller. */
+.wer1-about-page { --about-motion-ease: cubic-bezier(.22, 1, .36, 1); }
+@media (prefers-reduced-motion: no-preference) {
+  .wer1-about-page :is([data-about-motion], .section-heading) { --about-motion-distance: 35px; --about-motion-duration: 800ms; }
+  .wer1-about-page .about-motion-pending { opacity: 0; }
+  .wer1-about-page .about-motion-entered { animation: about-reveal var(--about-motion-duration, 900ms) var(--about-motion-ease) var(--about-motion-delay, 0ms) both; }
+  .wer1-about-page .wer1-about-introduction-copy > [data-about-motion] { --about-motion-distance: 45px; --about-motion-duration: 950ms; }
+  .wer1-about-page .wer1-about-introduction-body > [data-about-motion] { --about-motion-distance: 30px; --about-motion-duration: 800ms; }
+  .wer1-about-page .wer1-about-construction { --about-motion-distance: 35px; --about-motion-duration: 1200ms; }
+  .wer1-about-construction.about-motion-pending > img { transform: scale(1.05); }
+  .wer1-about-construction.about-motion-entered > img { animation: about-photo-scale 1200ms var(--about-motion-ease) var(--about-motion-delay, 0ms) both; }
+}
+@keyframes about-reveal { from { opacity: 0; transform: translateY(var(--about-motion-distance, 35px)); } to { opacity: 1; transform: none; } }
+@keyframes about-photo-scale { from { transform: scale(1.05); } to { transform: scale(1); } }

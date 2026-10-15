@@ -83,7 +83,7 @@ for (const width of [1440, 390]) {
     expect(response?.status()).toBe(200);
     await expect(page).toHaveTitle('Contact WER1 Group | Constructing Happiness');
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://wer1group.in/contact');
-    await expect(page.locator('main address')).toContainText('VTP Altitude,Aundh–Ravet BRTS Road,Wakad, Pune – 411033,Maharashtra, India.');
+    await expect(page.locator('main address')).toContainText('VTP Altitude, 5th Floor, Office No. 526,Aundh–Ravet BRTS Road, Wakad,Pune – 411033, Maharashtra, India.');
     await expect(page.locator('footer address')).toContainText('VTP Altitude');
     await expect(page.locator('main a[href="tel:+919011881133"]')).toBeVisible();
     await expect(page.locator('main a[href="tel:+917887700722"]')).toBeVisible();

@@ -12,28 +12,36 @@
 .our-evolution .evolution-logo-panel { display: grid; place-items: center; height: 146px; padding: 20px; background: #fff; }
 .our-evolution .evolution-logo-panel img { width: 100%; height: 100%; max-width: 300px; max-height: 106px; object-fit: contain; }
 .our-evolution .evolution-connector { height: 64px; position: relative; margin-inline: 25%; }
-.our-evolution .evolution-connector::before { content: ''; position: absolute; inset: 0 0 50%; border: solid var(--accent); border-width: 0 1px 1px; opacity: .5; }
-.our-evolution .evolution-connector span { position: absolute; left: 50%; top: 50%; bottom: 0; border-left: 1px solid var(--accent); opacity: .5; }
 .our-evolution .evolution-brand { max-width: 560px; margin-inline: auto; padding: 26px; text-align: center; border: 1px solid var(--line); background: var(--surface); }
 .our-evolution .evolution-brand h3 { font: 600 13px/1.5 var(--font-body); letter-spacing: .1em; margin-bottom: 8px; }
 .our-evolution .evolution-wer1-logo { width: 180px; height: 180px; object-fit: contain; margin-inline: auto; }
 .our-evolution .evolution-signature { font: 500 clamp(24px, 2.3vw, 30px)/1.25 var(--font-editorial); }
 .our-evolution .evolution-summary { max-width: 760px; margin: 28px auto 0; text-align: center; }
 .our-evolution .evolution-context { margin-top: 16px; font-size: 12px; }
-@media (prefers-reduced-motion: no-preference) {
-  .our-evolution .evolution-entered { animation: evolution-enter 550ms ease-out both; }
-  .our-evolution .evolution-venture:nth-child(2).evolution-entered { animation-delay: 80ms; }
-  .our-evolution .evolution-connector.evolution-entered { animation: evolution-connect 550ms ease-out both; transform-origin: top; }
-  .our-evolution .evolution-brand.evolution-entered { animation-delay: 120ms; }
-}
-@keyframes evolution-enter { from { opacity: .65; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-@keyframes evolution-connect { from { opacity: .4; transform: scaleY(.2); } to { opacity: 1; transform: scaleY(1); } }
 @media (max-width: 600px) {
   .our-evolution .evolution-ventures { grid-template-columns: 1fr; gap: 28px; }
   .our-evolution .evolution-venture + .evolution-venture { position: relative; }
   .our-evolution .evolution-venture + .evolution-venture::before { content: ''; position: absolute; height: 28px; border-left: 1px solid var(--accent); opacity: .5; top: -29px; left: 50%; }
   .our-evolution .evolution-connector { height: 28px; }
-  .our-evolution .evolution-connector::before { display: none; }
-  .our-evolution .evolution-connector span { top: 0; }
   .our-evolution .evolution-summary { text-align: left; }
 }
+
+.our-evolution .evolution-connector svg { display: block; width: 100%; height: 100%; color: var(--accent); opacity: .5; overflow: visible; }
+.our-evolution .evolution-mobile-stem { display: none; }
+@media (max-width: 600px) {
+  .our-evolution .evolution-branch, .our-evolution .evolution-stem { display: none; }
+  .our-evolution .evolution-mobile-stem { display: block; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wer1-about-page .our-evolution .evolution-venture { --about-motion-distance: 45px; --about-motion-duration: 900ms; }
+  .our-evolution .evolution-connector.about-motion-entered { animation: none; }
+  .our-evolution .evolution-connector.about-motion-pending path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .our-evolution .evolution-connector.about-motion-entered path { stroke-dasharray: 1; animation: evolution-draw 450ms ease-out var(--about-motion-delay, 0ms) both; }
+  .our-evolution .evolution-connector.about-motion-entered .evolution-stem { animation-duration: 250ms; animation-delay: calc(var(--about-motion-delay, 0ms) + 450ms); }
+  .our-evolution .evolution-connector.about-motion-entered .evolution-mobile-stem { animation-duration: 700ms; }
+  .our-evolution .evolution-brand.about-motion-entered { animation: evolution-brand-enter 900ms var(--about-motion-ease) var(--about-motion-delay, 0ms) both; }
+  .our-evolution .evolution-venture.about-motion-entered::before { transform-origin: top; animation: evolution-mobile-connect 650ms ease-out var(--about-motion-delay, 0ms) both; }
+}
+@keyframes evolution-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes evolution-brand-enter { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
+@keyframes evolution-mobile-connect { from { transform: scaleY(0); } to { transform: scaleY(1); } }

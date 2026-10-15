@@ -1,12 +1,29 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Logo } from './Logo';
+import { ProjectsNavigation } from './ProjectsNavigation';
+import '../styles/sticky-header.css';
 
-export function Header({ currentPage = 'home' }: { onMedia: () => void; currentPage?: 'home' | 'about' | 'contact' }) {
+export function Header({ currentPage = 'home' }: { onMedia: () => void; currentPage?: 'home' | 'about' | 'contact' | 'projects' }) {
   const [open, setOpen] = useState(false);
   const [hash, setHash] = useState(() => window.location.hash);
   const expertiseActive = currentPage === 'about' && hash === '#expertise';
   const toggle = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
+  useLayoutEffect(() => {
+    const element = header.current;
+    if (!element) return;
+    const root = document.documentElement;
+    const previous = root.style.getPropertyValue('--site-header-height');
+    const measure = () => root.style.setProperty('--site-header-height', `${element.getBoundingClientRect().height}px`);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      if (previous) root.style.setProperty('--site-header-height', previous);
+      else root.style.removeProperty('--site-header-height');
+    };
+  }, []);
   useEffect(() => {
     const updateHash = () => setHash(window.location.hash);
     window.addEventListener('hashchange', updateHash);
@@ -32,7 +49,7 @@ export function Header({ currentPage = 'home' }: { onMedia: () => void; currentP
       <button className="menu-toggle" ref={toggle} aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} aria-controls="main-navigation" onClick={() => setOpen(!open)}><span className={open ? 'menu-lines is-open' : 'menu-lines'} /><span>{open ? 'Close' : 'Menu'}</span></button>
       <nav id="main-navigation" className={open ? 'navigation is-open' : 'navigation'} aria-label="Main navigation" onClick={() => setOpen(false)}>
         <a href="/#home" aria-current={currentPage === 'home' ? 'page' : undefined}>Home</a><a href="/about" aria-current={currentPage === 'about' && !expertiseActive ? 'page' : undefined}>About us</a>
-        <a href="/#projects">Projects <span className="chevron" aria-hidden="true" /></a>
+        <ProjectsNavigation active={currentPage === 'projects'} />
         <a href="/about#expertise" aria-current={expertiseActive ? 'location' : undefined}>Our Expertise</a><a href="/contact" aria-current={currentPage === 'contact' ? 'page' : undefined}>Contact us</a>
       </nav>
     </div>

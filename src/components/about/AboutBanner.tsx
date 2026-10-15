@@ -13,7 +13,9 @@ export function AboutBanner() {
       if (motion.matches || smallScreen.matches) { image.current.style.transform = 'none'; return; }
       const bounds = banner.current.getBoundingClientRect();
       if (bounds.bottom < 0 || bounds.top > window.innerHeight) return;
-      const distance = Math.max(-70, Math.min(70, -bounds.top * 0.4));
+      // 220px of background travel as the banner passes the viewport top.
+      const progress = Math.max(0, Math.min(1, -bounds.top / bounds.height));
+      const distance = -110 + progress * 220;
       image.current.style.transform = `translate3d(0, ${distance}px, 0)`;
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
