@@ -27,5 +27,14 @@
 /robots.txt
   Cache-Control: public, max-age=0, must-revalidate
 
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
+/projects
+  Cache-Control: public, max-age=0, must-revalidate
+
+/projects/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/404.html
+  Cache-Control: no-store
+
+# scripts/verify-build.mjs appends immutable rules for emitted hashed assets only.
+# Do not use /assets/*: it would also cache missing-asset error responses.

@@ -72,9 +72,42 @@ Instagram is @wer1_group at the exact client-provided URL. Links use a recogniza
 
 ## Routing and Cloudflare
 
-Build command remains `npm run build`; output remains `dist/`; the deployment project and domain are unchanged. Direct `/contact` and `/about` requests work in Vite production preview. Cloudflare Pages' documented SPA fallback applies because there is no top-level `dist/404.html`: https://developers.cloudflare.com/pages/configuration/serving-pages/#single-page-application-spa-rendering.
+Build command: `npm run build`; output directory: `dist/`; Vite base: `/`. Deploy the entire output of one build, never `index.html` alone or a mixture of deployments.
 
-Contact and About routes include HTML revalidation rules in `public/_headers`. Existing security headers, stable media revalidation and immutable hashed-asset caching remain. Local preview does not emulate Cloudflare response headers; live verification awaits deployment approval.
+The build verification script checks all CSS/JS references in `dist/index.html`, verifies CSS font/image dependencies, generates identical React entry HTML for `/about`, `/contact`, and `/projects`, and writes exact immutable cache rules for emitted fingerprinted assets. `public/404.html` disables Cloudflare Pages' implicit SPA fallback. Unknown assets and routes return 404; `_redirects` only canonicalizes trailing slashes on supported page URLs. The current app has no configured project detail routes or `detailPath` links. When adding a route later (including project details), add its generated shell and HTML revalidation rules too.
+
+HTML routes revalidate (`max-age=0, must-revalidate`). Only existing hashed asset URLs receive one-year immutable caching. There is deliberately no `/assets/*` immutable rule: a missing file must not inherit it. A stable `-delivery-` filename namespace bypasses previously poisoned browser asset caches; do not change this prefix on every release. Vite content hashes handle future updates automatically. Existing media revalidation and security headers remain intact.
+
+### CSS delivery incident — verified 15 October 2026
+
+At investigation time, live HTML referenced `/assets/index-Wl1tbQ0K.css` and `/assets/index-DIJdseVc.js`. Both returned correct MIME types and matched a clean build of commit `8da99d8` byte-for-byte. The HTML response was `CF-Cache-Status: DYNAMIC` with revalidation enabled. A cache-busted CSS request returned identical CSS. Stale HTML or the exact original failing asset could not be established from these responses.
+
+Confirmed live failure mechanism: `/assets/delivery-probe-not-present.css` returned **200**, **text/html**, and **Cache-Control: public, max-age=31536000, immutable**. Its body exactly matched the homepage. This combines the default Pages SPA fallback with an overly broad immutable asset header, allowing a missing/stale asset request to be stored as HTML. The fix disables that fallback and limits immutable headers to actual build outputs. It does not disguise HTML as CSS or alter website design.
+
+No Wrangler config, Pages Functions, service worker, or custom rewrite was present in the repository before this fix. Account-level Cloudflare Cache Rules, Page Rules, Workers routes, production branch, and build settings are not inspectable from repository files.
+
+### Local delivery verification (no deployment)
+
+```sh
+npm ci
+npm run build
+npx --yes wrangler@4.86.0 pages dev dist --port 4174 --compatibility-date=2026-05-03
+# In another terminal:
+node scripts/check-delivery.mjs http://localhost:4174
+# Automated browser audit starts its own Pages emulator on port 4176:
+npx playwright test --config=playwright.pages.config.ts
+```
+
+The explicit compatibility date works with the locally tested Wrangler 4.86.0 runtime. `scripts/check-delivery.mjs` checks asset MIME types, immutable cache rules, HTML revalidation, route/query preservation, and real 404s for missing CSS/JS/images. Vite preview does not emulate Pages `_headers`, `_redirects`, or its fallback behavior. `tests/asset-delivery.spec.ts` covers browser asset loading, seven responsive widths, direct loads and refreshes, trailing-slash URLs, query filters, and hash deep links; the existing project-navigation tests cover filters, refresh, links, and mobile navigation.
+
+### Cloudflare Dashboard actions for the release owner
+
+1. Verify the intended Pages project and production branch point to the reviewed commit, the build command is `npm run build`, and the output directory is `dist`. Publish the complete build only after deployment approval.
+2. Check zone Cache Rules/Page Rules and Workers routes: remove any override that caches HTML without revalidation, rewrites missing `/assets/*` to `/`, or serves another deployment. Do not apply a blanket Cache Everything rule to HTML or error responses.
+3. After the approved deployment, purge the zone cache (or affected HTML and old asset URLs) and verify the custom domain and the deployment's `pages.dev` URL. Existing browser immutable entries cannot be purged from the Dashboard; the changed asset filenames bypass them.
+4. Run the delivery checker against both URLs and confirm the new CSS and JS return their proper MIME types, while a nonexistent asset returns 404. Cloudflare documents the default fallback at https://developers.cloudflare.com/pages/configuration/serving-pages/ and header behavior at https://developers.cloudflare.com/pages/configuration/headers/.
+
+No push, deployment, Dashboard change, or production purge was performed by this fix.
 
 ## Previous brand/content update — changed files
 

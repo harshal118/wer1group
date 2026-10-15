@@ -1,0 +1,5 @@
+# Canonical application URLs. Build-generated route HTML serves the React app.
+# Never rewrite /assets/*, /media/*, or unknown paths to the homepage.
+/about/ /about 301
+/contact/ /contact 301
+/projects/ /projects 301

@@ -1,7 +1,7 @@
 {
   "name": "wer1-group", "version": "2.0.0", "private": true, "type": "module",
   "engines": { "node": ">=20.19.0" },
-  "scripts": { "dev": "vite --host 127.0.0.1", "build": "npm run typecheck && vite build", "typecheck": "tsc --noEmit", "preview": "vite preview --host 127.0.0.1", "test:e2e": "playwright test" },
+  "scripts": { "dev": "vite --host 127.0.0.1", "build": "npm run typecheck && vite build && node scripts/verify-build.mjs", "typecheck": "tsc --noEmit", "preview": "vite preview --host 127.0.0.1", "test:e2e": "playwright test" },
   "dependencies": { "react": "^19.2.0", "react-dom": "^19.2.0" },
   "devDependencies": { "@types/react": "^19.2.0", "@types/react-dom": "^19.2.0", "@vitejs/plugin-react": "^5.0.4", "typescript": "~5.9.3", "vite": "^7.1.9", "@playwright/test": "^1.56.0" }
 }
