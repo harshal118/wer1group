@@ -29,7 +29,12 @@ async function verifyFile(path) {
     }
   }
 }
-for (const path of new Set(referenced)) await verifyFile(path);
+for (const entry of ['index', 'about', 'contact', 'projects']) {
+  const page = await readFile(resolve(output, `${entry}.html`), 'utf8');
+  const urls = [...page.matchAll(/(?:src|href)="(\/assets\/[^"?#]+)"/g)].map(match => match[1]);
+  assert.deepEqual(urls, referenced, `Asset references differ in ${entry}.html`);
+  for (const path of new Set(urls)) await verifyFile(path);
+}
 
 // Enumerate actual Vite outputs: a nonexistent asset must never inherit immutable caching.
 const assets = (await readdir(resolve(output, 'assets'))).sort();

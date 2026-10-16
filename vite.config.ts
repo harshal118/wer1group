@@ -6,13 +6,13 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    // Rotate URLs once to bypass any HTML cached under the previous immutable asset URLs.
+    // Recovery release: bypass both legacy and delivery-era poisoned browser asset URLs.
     // Keep this namespace stable: content hashes handle subsequent deployments.
     rollupOptions: {
       output: {
-        entryFileNames: 'assets/[name]-delivery-[hash].js',
-        chunkFileNames: 'assets/[name]-delivery-[hash].js',
-        assetFileNames: 'assets/[name]-delivery-[hash][extname]',
+        entryFileNames: 'assets/[name]-recovery-20261016-[hash].js',
+        chunkFileNames: 'assets/[name]-recovery-20261016-[hash].js',
+        assetFileNames: 'assets/[name]-recovery-20261016-[hash][extname]',
       },
     },
   },

@@ -3,7 +3,6 @@ import { defineConfig } from '@playwright/test';
 // Exercise Pages routing/headers rather than Vite's development SPA fallback.
 export default defineConfig({
   testDir: './tests',
-  testMatch: ['asset-delivery.spec.ts', 'projects-navigation.spec.ts'],
   fullyParallel: false,
   workers: 1,
   reporter: 'list',

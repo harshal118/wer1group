@@ -76,7 +76,7 @@ Build command: `npm run build`; output directory: `dist/`; Vite base: `/`. Deplo
 
 The build verification script checks all CSS/JS references in `dist/index.html`, verifies CSS font/image dependencies, generates identical React entry HTML for `/about`, `/contact`, and `/projects`, and writes exact immutable cache rules for emitted fingerprinted assets. `public/404.html` disables Cloudflare Pages' implicit SPA fallback. Unknown assets and routes return 404; `_redirects` only canonicalizes trailing slashes on supported page URLs. The current app has no configured project detail routes or `detailPath` links. When adding a route later (including project details), add its generated shell and HTML revalidation rules too.
 
-HTML routes revalidate (`max-age=0, must-revalidate`). Only existing hashed asset URLs receive one-year immutable caching. There is deliberately no `/assets/*` immutable rule: a missing file must not inherit it. A stable `-delivery-` filename namespace bypasses previously poisoned browser asset caches; do not change this prefix on every release. Vite content hashes handle future updates automatically. Existing media revalidation and security headers remain intact.
+HTML routes revalidate (`max-age=0, must-revalidate`). Only existing hashed asset URLs receive one-year immutable caching. There is deliberately no `/assets/*` immutable rule: a missing file must not inherit it. The stable `-recovery-20261016-` filename namespace bypasses both original and `-delivery-` browser asset caches; do not change this prefix on every release. Vite content hashes handle future updates automatically. Existing media revalidation and security headers remain intact.
 
 ### CSS delivery incident — verified 15 October 2026
 
@@ -85,6 +85,18 @@ At investigation time, live HTML referenced `/assets/index-Wl1tbQ0K.css` and `/a
 Confirmed live failure mechanism: `/assets/delivery-probe-not-present.css` returned **200**, **text/html**, and **Cache-Control: public, max-age=31536000, immutable**. Its body exactly matched the homepage. This combines the default Pages SPA fallback with an overly broad immutable asset header, allowing a missing/stale asset request to be stored as HTML. The fix disables that fallback and limits immutable headers to actual build outputs. It does not disguise HTML as CSS or alter website design.
 
 No Wrangler config, Pages Functions, service worker, or custom rewrite was present in the repository before this fix. Account-level Cloudflare Cache Rules, Page Rules, Workers routes, production branch, and build settings are not inspectable from repository files.
+
+### Repeat-visitor recovery — 16 October 2026
+
+The prior server-side fix is now visible on the custom domain. Read-only curl checks returned revalidating HTML (`public, max-age=0, must-revalidate`, `CF-Cache-Status: DYNAMIC`) for Home, About, Projects, and Contact, correct MIME types for `index-delivery-WLWeewB0.css` and `index-delivery-DiNUnv4T.js`, and missing CSS/JS responses with HTTP 404 and `Cache-Control: no-store`. An initial Python HTTP client received 403 responses; these were not used as evidence of asset-cache behavior. The owner reports zero Cache Rules and Page Rules; other Dashboard settings and an affected visitor's browser cache were not directly inspected.
+
+The previously recorded 200/HTML responses with a one-year immutable lifetime can remain in browser HTTP caches after an edge purge. Cloudflare explicitly documents that its purge does not clear visitor browser caches: https://developers.cloudflare.com/cache/how-to/edge-browser-cache-ttl/. This confirms the retention mechanism, not the contents of any particular visitor's cache. No service worker or runtime cache is registered by this application.
+
+This recovery uses a fresh, fixed `recovery-20261016` namespace plus Vite content hashes. All generated HTML entries use the new URLs; no old asset URL needs to be fetched or invalidated. HTML revalidation is explicitly configured for clean URLs, trailing slashes, and the generated `.html` entry URLs. Missing-asset 404 handling and exact-file immutable policies from the earlier fix remain in place. No CSS rules, component markup, content, or animations change.
+
+`tests/browser-cache-recovery.spec.ts` seeds a real Chromium HTTP cache with invalid immutable HTML under both previous sets of asset URLs, proves those responses remain cached without extra server requests, then navigates normally in the same browser context to the new release. It verifies that JavaScript and CSS load without requesting the poisoned URLs. It does not clear cache, disable caching, intercept requests with Playwright, or create a new browser context for recovery. Normal navigation after the approved deployment gets the fresh entry HTML; a tab already sitting on a failed document cannot execute code that was never loaded and is not remotely refreshed by this change.
+
+Recovery validation: `npm ci` and `npm run build` passed. Every generated HTML entry references existing assets in the recovery namespace. The Pages HTTP delivery checker passed MIME, cache policy, route, and missing-asset checks. The complete browser suite ran 145 tests: 129 passed and 16 failed. The failures concern existing UI assertions (About section adjacency, seven footer `<br>` assertions, four-card preview copy/order, and seven tests waiting for the removed Media button); no delivery/cache-recovery test failed. The same failing cases were checked against an isolated, untouched build of commit `54b90f6`, rather than changing the UI or weakening tests to obtain a passing suite. Application CSS/JS match that baseline byte-for-byte after normalizing asset namespace references. No commit, push, or deployment was performed for this recovery.
 
 ### Local delivery verification (no deployment)
 
@@ -98,7 +110,7 @@ node scripts/check-delivery.mjs http://localhost:4174
 npx playwright test --config=playwright.pages.config.ts
 ```
 
-The explicit compatibility date works with the locally tested Wrangler 4.86.0 runtime. `scripts/check-delivery.mjs` checks asset MIME types, immutable cache rules, HTML revalidation, route/query preservation, and real 404s for missing CSS/JS/images. Vite preview does not emulate Pages `_headers`, `_redirects`, or its fallback behavior. `tests/asset-delivery.spec.ts` covers browser asset loading, seven responsive widths, direct loads and refreshes, trailing-slash URLs, query filters, and hash deep links; the existing project-navigation tests cover filters, refresh, links, and mobile navigation.
+The explicit compatibility date works with the locally tested Wrangler 4.86.0 runtime. `scripts/check-delivery.mjs` checks asset MIME types, immutable cache rules, HTML revalidation, route/query preservation, and real 404s for missing CSS/JS/images. Vite preview does not emulate Pages `_headers`, `_redirects`, or its fallback behavior. The Pages test configuration runs the complete existing browser suite, including the cache-recovery regression. `tests/asset-delivery.spec.ts` covers browser asset loading, seven responsive widths, direct loads and refreshes, trailing-slash URLs, query filters, and hash deep links; the existing project-navigation tests cover filters, refresh, links, and mobile navigation.
 
 ### Cloudflare Dashboard actions for the release owner
 

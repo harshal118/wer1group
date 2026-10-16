@@ -15,10 +15,16 @@
 /contact/
   Cache-Control: public, max-age=0, must-revalidate
 
+/contact.html
+  Cache-Control: public, max-age=0, must-revalidate
+
 /about
   Cache-Control: public, max-age=0, must-revalidate
 
 /about/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/about.html
   Cache-Control: public, max-age=0, must-revalidate
 
 /media/*
@@ -31,6 +37,9 @@
   Cache-Control: public, max-age=0, must-revalidate
 
 /projects/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/projects.html
   Cache-Control: public, max-age=0, must-revalidate
 
 /404.html
