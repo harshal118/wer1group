@@ -22,7 +22,10 @@ export function ProjectsNavigation({ active }: { active: boolean }) {
   const desktopPointer = () => window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 769px)').matches;
   return <div className="projects-navigation" ref={container}
     onPointerEnter={() => { if (desktopPointer()) setOpen(true); }}
-    onPointerLeave={() => { if (!container.current?.contains(document.activeElement)) setOpen(false); }}
+    onPointerLeave={event => {
+      // Touch release can emit pointerleave before link activation without moving focus.
+      if (event.pointerType !== 'touch' && desktopPointer() && !container.current?.contains(document.activeElement)) setOpen(false);
+    }}
     onFocus={event => { if (desktopPointer() && !event.currentTarget.contains(event.relatedTarget)) setOpen(true); }}
     onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}
     onKeyDown={event => {
