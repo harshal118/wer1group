@@ -88,7 +88,7 @@ export const company: Company = {
     { title: 'A Vision for Better Living' },
   ],
   contact: {
-    phones: [{ display: '+91 9011881133', href: 'tel:+919011881133' }, { display: '+91 7887700722', href: 'tel:+917887700722' }],
+    phones: [{ display: '+91 7350004455', href: 'tel:+917350004455' }, { display: '+91 7887700722', href: 'tel:+917887700722' }],
     email: 'wer1infra@gmail.com',
     proposedEmail: { address: 'enquiry@wer1group.in', verified: false },
     enquiryDeliveryConfigured: false,

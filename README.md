@@ -74,7 +74,7 @@ The first hero image preloads its landscape WebP on every device; the old portra
 
 The complete `wer1 profile.pdf` was inspected. It contains no total-unit counts and no land-area figures for the five named completed/ongoing projects. Its two different upcoming Punawale specifications cannot be combined or mapped to the single public entry without client confirmation.
 
-All six entries therefore keep landArea and totalUnits as null and display **Details Coming Soon**. Residential floor area is never substituted for unit counts. The historical measurements and original PDF classifications are retained outside the public content model in `assets/PROJECT_SOURCE_NOTES.md`.
+Current client-approved specifications populate all six land areas and the five confirmed unit counts. Punawale has residential and commercial space figures; its total unit count remains unspecified. Residential floor area is never substituted for unit counts. The historical measurements and original PDF classifications are retained outside the public content model in `assets/PROJECT_SOURCE_NOTES.md`.
 
 ## Contact
 
@@ -82,7 +82,7 @@ The dedicated `/contact` page and footer use the approved address; the homepage 
 
 VTP Altitude, 5th Floor, Office No. 526, Aundh–Ravet BRTS Road, Wakad, Pune – 411033, Maharashtra, India.
 
-Both phones (+91 9011881133 and +91 7887700722) are click-to-call. The published email is wer1infra@gmail.com. The proposed enquiry@wer1group.in address is stored separately as unverified and is not published.
+Both phones (+91 7350004455 and +91 7887700722) are click-to-call. The published email is wer1infra@gmail.com. The proposed enquiry@wer1group.in address is stored separately as unverified and is not published.
 
 Instagram is @wer1_group at the exact client-provided URL. Links use a recognizable icon, open in a new tab and include noopener/noreferrer. No follower counts or posts are fabricated. Contact actions open email/call links; no backend enquiry delivery is claimed.
 

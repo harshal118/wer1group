@@ -11,8 +11,8 @@ test('project filters preserve six-entry order and accurate fields', async ({ pa
   for (const [index, year] of [2023, 2024, 2025, 2027, 2027, 2028].entries()) {
     const facts = page.locator('.project-facts').nth(index);
     await expect(facts).toContainText(String(year));
-    await expect(facts.locator('div').filter({ has: page.locator('dt', { hasText: 'Land area' }) }).locator('dd')).toHaveText('Details Coming Soon');
-    await expect(facts.locator('div').filter({ has: page.locator('dt', { hasText: 'Total units' }) }).locator('dd')).toHaveText('Details Coming Soon');
+    await expect(facts.locator('div').filter({ has: page.locator('dt', { hasText: 'Land Area' }) }).locator('dd')).toHaveText(['5,400 sq. ft.', '6,000 sq. ft.', '17,400 sq. ft.', '4,300 sq. ft.', '50,000 sq. ft.', '11,300 sq. ft.'][index]);
+    await expect(facts.locator('div').filter({ has: page.locator('dt', { hasText: 'Total Units' }) }).locator('dd')).toHaveText(['10', '16', '60', '20', 'Details Coming Soon', '50'][index]);
   }
   await expect(page.locator('.project-description')).toHaveCount(6);
   const filters = page.getByRole('group', { name: 'Filter projects' });
@@ -85,9 +85,9 @@ for (const width of [1440, 390]) {
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://wer1group.in/contact');
     await expect(page.locator('main address')).toContainText('VTP Altitude, 5th Floor, Office No. 526,Aundh–Ravet BRTS Road, Wakad,Pune – 411033, Maharashtra, India.');
     await expect(page.locator('footer address')).toContainText('VTP Altitude');
-    await expect(page.locator('main a[href="tel:+919011881133"]')).toBeVisible();
-    await expect(page.locator('main a[href="tel:+917887700722"]')).toBeVisible();
-    const instagram = page.locator('main .instagram-link');
+    await expect(page.locator('footer a[href="tel:+917350004455"]')).toBeVisible();
+    await expect(page.locator('footer a[href="tel:+917887700722"]')).toBeVisible();
+    const instagram = page.locator('footer .instagram-link');
     await expect(instagram).toHaveAttribute('href', 'https://www.instagram.com/wer1_group?vrfl=amszYmQ3cGVmbnk1');
     await expect(instagram).toHaveAttribute('target', '_blank');
     await expect(instagram).toHaveAttribute('rel', 'noopener noreferrer');

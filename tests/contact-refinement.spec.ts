@@ -9,15 +9,18 @@ for (const width of [1920,1440,1024,768,430,390,360]) {
     await expect(main.locator('h1')).toHaveText("Let's Build Something Meaningful.");
     await expect(main.locator('h2')).toHaveText(['Our Office','Start a Conversation']);
     await expect(main.locator('address')).toHaveText('VTP Altitude, 5th Floor, Office No. 526,Aundh–Ravet BRTS Road, Wakad,Pune – 411033, Maharashtra, India.');
-    await expect(main.locator('a[href^="tel:"]')).toHaveCount(2);
-    await expect(main.getByRole('link',{name:'+91 9011881133',exact:true})).toHaveAttribute('href','tel:+919011881133');
-    await expect(main.getByRole('link',{name:'+91 7887700722',exact:true})).toHaveAttribute('href','tel:+917887700722');
-    await expect(main.locator('iframe')).toHaveCount(0);
-    await expect(main.locator('.instagram-link')).toHaveAttribute('href','https://www.instagram.com/wer1_group?vrfl=amszYmQ3cGVmbnk1');
-    await expect(main.locator('.instagram-link linearGradient')).toHaveCount(1);
+    await expect(main.locator('a[href^="tel:"], .instagram-link')).toHaveCount(0);
+    await expect(page.locator('footer a[href="tel:+917350004455"]')).toHaveText('+91 7350004455');
+    await expect(page.locator('footer a[href="tel:+917887700722"]')).toHaveText('+91 7887700722');
+    await expect(page.locator('footer .instagram-link linearGradient')).toHaveCount(1);
+    await expect(page.locator('footer a[href="mailto:wer1infra@gmail.com"]')).toBeVisible();
     const cta = main.getByRole('link',{name:'Send Us an Email',exact:true});
     await expect(cta).toHaveAttribute('href','mailto:wer1infra@gmail.com');
-    await expect(main.locator('.contact-link-row').nth(1).locator('a').first()).toHaveAttribute('href','mailto:wer1infra@gmail.com');
+    const whatsapp = main.getByRole('link', { name: 'Discuss Your Project Requirements', exact: true });
+    await expect(whatsapp).toHaveAttribute('href', (await page.locator('.whatsapp-button').getAttribute('href'))!);
+    await expect(whatsapp).toHaveAttribute('target', '_blank');
+    await expect(whatsapp).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(main.locator('.contact-conversation a')).toHaveCount(2);
     await page.evaluate(() => document.fonts.ready);
     // Finish the existing entrance animation before comparing geometry.
     await main.locator('.contact-page-grid').evaluate(async element => {
@@ -30,24 +33,17 @@ for (const width of [1920,1440,1024,768,430,390,360]) {
       const right = parseFloat(style.borderRightWidth) + parseFloat(style.paddingRight);
       return box.x + left + (box.width - left - right) / 2;
     });
-    for (const row of await main.locator('.contact-link-row').all()) {
-      const links = await row.locator('a').all();
-      const boxes = await Promise.all(links.map(link => link.boundingBox()));
-      for (const link of links) await expect(link).toHaveCSS('font-size', '15px');
-      for (const box of boxes) expect(box!.height).toBeGreaterThanOrEqual(44);
-      if (width >= 1024) {
-        expect(boxes[0]!.y + boxes[0]!.height / 2).toBeCloseTo(boxes[1]!.y + boxes[1]!.height / 2, 1);
-        expect((boxes[0]!.x + boxes[1]!.x + boxes[1]!.width) / 2).toBeCloseTo(center, 1);
-        expect(boxes[1]!.x).toBeGreaterThan(boxes[0]!.x + boxes[0]!.width);
-      } else if (width <= 600) {
-        for (const box of boxes) expect(box!.x + box!.width / 2).toBeCloseTo(center, 1);
-        expect(boxes[1]!.y).toBeGreaterThanOrEqual(boxes[0]!.y + boxes[0]!.height);
-      }
+    const first = (await cta.boundingBox())!;
+    const second = (await whatsapp.boundingBox())!;
+    if (width >= 1024) {
+      expect(first.y).toBeCloseTo(second.y, 1);
+      expect(first.height).toBeCloseTo(second.height, 1);
+      expect((first.x + second.x + second.width) / 2).toBeCloseTo(center, 1);
+    } else {
+      expect(first.width).toBeCloseTo(second.width, 1);
+      expect(second.y - first.y - first.height).toBeCloseTo(16, 1);
+      expect(first.x + first.width / 2).toBeCloseTo(center, 1);
     }
-    const buttonBox = (await cta.boundingBox())!;
-    const rowsBox = (await main.locator('.contact-page-links').boundingBox())!;
-    expect(buttonBox.x + buttonBox.width / 2).toBeCloseTo(center, 1);
-    expect(buttonBox.y - rowsBox.y - rowsBox.height).toBeCloseTo(24, 1);
     await cta.focus();
     await expect(cta.locator('.brand-story-border path')).toHaveCSS('stroke-dashoffset','0px');
     await expect(cta).toHaveCSS('outline-style','solid');

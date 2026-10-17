@@ -3,7 +3,7 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { MediaDialog } from '../components/MediaDialog';
 import { PageMetadata } from '../components/PageMetadata';
-import { InstagramLink } from '../components/InstagramLink';
+import { getWhatsAppUrl } from '../utils/whatsapp';
 import { company } from '../data/company';
 import { BrandStoryCTA } from '../components/BrandStoryCTA';
 import '../styles/contact.css';
@@ -27,11 +27,10 @@ export function ContactPage() {
         </section>
         <section className="contact-conversation" aria-labelledby="conversation-title">
           <p className="eyebrow"><span>02</span> / Connect With Us</p><h2 id="conversation-title">Start a Conversation</h2>
-          <div className="contact-page-links">
-            <div className="contact-link-row">{company.contact.phones.map(phone => <a key={phone.href} href={phone.href}>{phone.display}</a>)}</div>
-            <div className="contact-link-row"><a href={`mailto:${company.contact.email}`}>{company.contact.email}</a><InstagramLink multicolor /></div>
+          <div className="contact-actions">
+            <BrandStoryCTA href={`mailto:${company.contact.email}`} label="Send Us an Email" />
+            <BrandStoryCTA href={getWhatsAppUrl()} label="Discuss Your Project Requirements" newTab />
           </div>
-          <BrandStoryCTA href={`mailto:${company.contact.email}`} label="Send Us an Email" />
         </section>
       </div>
     </section></main><Footer /><MediaDialog dialogRef={media} />

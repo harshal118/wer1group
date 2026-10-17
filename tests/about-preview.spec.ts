@@ -82,7 +82,7 @@ for (const width of [1920, 1440, 1024, 768, 430, 390]) {
     await expect(cards.locator('h2')).toHaveText(['Our Philosophy', 'Our Values', 'Our Expertise']);
     for (const description of await cards.locator('p').allTextContents()) expect(description.trim().split(/\s+/).length).toBeLessThanOrEqual(30);
     await expect(page.locator('[href$="#approach"], #approach')).toHaveCount(0);
-    await expect(cards.first().locator('p')).toHaveCSS('text-align', width > 600 ? 'justify' : 'left');
+    await expect(cards.first().locator('p')).toHaveCSS('text-align', 'justify');
     await expect(cards.first().locator('p')).toHaveCSS('text-align-last', 'left');
     await section.scrollIntoViewIfNeeded();
     const boxes = await cards.evaluateAll(elements => elements.map(el => { const b = el.getBoundingClientRect(); return { x: b.x, y: b.y, width: b.width, height: b.height }; }));

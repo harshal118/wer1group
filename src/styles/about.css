@@ -41,9 +41,7 @@
   text-align: justify;
   text-align-last: left;
 }
-@media (max-width: 600px) {
-  .wer1-about-page :is(.wer1-about-introduction-body > p, .editorial-copy > p, .service-card > p, .values-grid p, .evolution-heading > p:not(.eyebrow), .evolution-summary > p:not(.evolution-context)) { text-align: left; }
-}
+
 
 /* Scoped motion tokens: visible by default, armed only by a working JS controller. */
 .wer1-about-page { --about-motion-ease: cubic-bezier(.22, 1, .36, 1); }

@@ -14,7 +14,7 @@ for (const width of [1920, 1440, 1024, 768, 430, 390]) {
     await expect(page.locator('.values-grid p')).toHaveText(company.values.map(item => item.description));
     await expect(page.locator('#approach, .approach-grid, .stage-number, [href$="#approach"]')).toHaveCount(0);
     for (const selector of ['.wer1-about-introduction-body p', '.editorial-copy p', '.service-card p', '.values-grid p']) {
-      await expect(page.locator(selector).first()).toHaveCSS('text-align', width > 600 ? 'justify' : 'left');
+      await expect(page.locator(selector).first()).toHaveCSS('text-align', 'justify');
       await expect(page.locator(selector).first()).toHaveCSS('text-align-last', 'left');
     }
     await expect(page.locator('.company-purpose, .closing-section')).toHaveCount(0);

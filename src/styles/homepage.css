@@ -98,6 +98,3 @@
   text-align: justify;
   text-align-last: left;
 }
-@media (max-width: 600px) {
-  #home main :is(.about-copy > p, .project-description, .about-preview-card > p, .credibility-pillar > p) { text-align: left; }
-}

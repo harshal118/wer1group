@@ -85,3 +85,12 @@ h1 { font-family: var(--font-editorial); font-size: clamp(38px, 3.9vw, 60px); li
   .is-revealed { animation: section-enter 600ms ease both; }
 }
 @keyframes section-enter { from { opacity: .65; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Mobile body copy only: preserve headings, labels, captions and contact links. */
+@media (max-width: 768px) {
+  #root main :is(.project-description, .contact-support, .mission-vision-card > p,
+    .story-copy > p:not(.eyebrow), .service-card > p, .values-grid article > p) {
+    text-align: justify;
+    text-align-last: left;
+  }
+}

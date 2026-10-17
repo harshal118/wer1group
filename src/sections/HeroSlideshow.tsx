@@ -12,7 +12,7 @@ export function HeroSlideshow() {
     window.clearInterval(timer.current);
     timer.current = window.setInterval(() => {
       setActive(current => (current + 1) % heroProjects.length);
-    }, 5000);
+    }, 3000);
   }, []);
 
   useEffect(() => {

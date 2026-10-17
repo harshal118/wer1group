@@ -3,6 +3,7 @@ import { HomePage } from './pages/HomePage';
 import { ContactPage } from './pages/ContactPage';
 import { AboutPage } from './pages/AboutPage';
 import { useEffect } from 'react';
+import { WhatsAppButton } from './components/WhatsAppButton';
 
 export default function App() {
   useEffect(() => {
@@ -16,5 +17,6 @@ export default function App() {
     return () => { cancelled = true; };
   }, []);
   const path = window.location.pathname.replace(/\/$/, '');
-  return path === '/projects' ? <ProjectsPage /> : path === '/about' ? <AboutPage /> : path === '/contact' ? <ContactPage /> : <HomePage />;
+  const page = path === '/projects' ? <ProjectsPage /> : path === '/about' ? <AboutPage /> : path === '/contact' ? <ContactPage /> : <HomePage />;
+  return <>{page}<WhatsAppButton /></>;
 }

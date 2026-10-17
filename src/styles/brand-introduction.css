@@ -1,7 +1,7 @@
 .about.opening-statement { align-items: start; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); column-gap: clamp(32px, 5vw, 80px); row-gap: var(--section-gap); padding-block: clamp(40px, 4.2vw, 64px); }
 .opening-statement .brand-statement { flex-wrap: wrap; gap: 12px 20px; margin-bottom: clamp(20px, 2vw, 28px); }
 .opening-statement .about-copy { min-width: 0; padding-bottom: 0; }
-#home main .opening-statement .about-copy > p { text-align: left; }
+#home main .opening-statement .about-copy > p { text-align: justify; }
 .opening-statement .opening-actions { margin-top: clamp(20px, 2vw, 26px); }
  /* Account for the original logo's transparent canvas without cropping or resizing it. */
 .opening-statement .brand-statement .brand-logo { margin-block: -38px; }
