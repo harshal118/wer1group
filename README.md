@@ -54,6 +54,22 @@ The hero has a distinct explicit sequence: **Aikyam → Chinchwad → Sinclair P
 
 Existing served WebP copies at `public/media/projects/` match the originals in `assets/projects/` byte-for-byte. No project asset was moved, renamed, overwritten or deleted in this update. ProjectMedia provides a consistent missing-image fallback. Punawale has an empty image array, is absent from the hero and displays a neutral branded Coming Soon visual with its name and expected completion. No historical Punawale photograph is referenced or requested by the app.
 
+## Landscape project sources
+
+The five optimized 1672 × 941 WebP images live in `public/media/projects/Landscape_Project_Assets/`, retaining the established project-to-image mappings. There is one source copy of each; Vite copies these public assets into `dist/media/projects/Landscape_Project_Assets/` for Pages deployment.
+
+| Landscape filename | Project |
+| --- | --- |
+| `Aikyam_Landscape.webp` | Aikyam |
+| `Chinchwad_Landscape.webp` | Chinchwad |
+| `Marunji_Landscape.webp` | Marunji |
+| `Sinclair_Landscape.webp` | Sinclair Place |
+| `Sukhada_Landscape.webp` | Sukhada Apartment |
+
+`projects.ts` keeps landscape metadata separate from the original `images`, dimensions, and object positions. The homepage slideshow uses the same landscape sources on every device. Project cards explicitly select landscape sources on every device through `ProjectMedia`'s `imageMode="landscape"` option; their existing 4:3 containers, proportional `object-fit: cover` rendering, and hover effects are retained. The slideshow uses a 1672:941 frame with contain fitting on every device; mobile captions sit below the image while desktop captions remain overlaid. The Sinclair About-preview background uses its landscape source only above 900px, preserving the portrait image in its stacked layout. Transitions and parallax are unchanged. Punawale remains a Coming Soon placeholder.
+
+The first hero image preloads its landscape WebP on every device; the old portrait source is not preloaded. Existing eager/high-priority loading for the first hero and lazy loading for other imagery remain. The supplied optimized WebPs are used directly without further re-encoding or duplicate copies.
+
 ## Measurement verification
 
 The complete `wer1 profile.pdf` was inspected. It contains no total-unit counts and no land-area figures for the five named completed/ongoing projects. Its two different upcoming Punawale specifications cannot be combined or mapped to the single public entry without client confirmation.

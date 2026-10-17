@@ -66,7 +66,7 @@ test('client messaging, five expertise categories and distinct philosophy sectio
 });
 
 test('image failure uses shared fallback without unrelated pictures', async ({ page }) => {
-  await page.route('**/media/projects/aikyam.webp', route => route.abort());
+  await page.route(/\/media\/projects\/(?:aikyam\.webp|Landscape_Project_Assets\/Aikyam_Landscape\.webp)$/, route => route.abort());
   await page.goto('/');
   await expect(page.locator('.hero-slide.is-active .hero-placeholder')).toContainText('Image forthcoming');
   await page.locator('[data-project-id="aikyam"]').scrollIntoViewIfNeeded();

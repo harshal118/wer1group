@@ -54,9 +54,13 @@ export function AboutPreviewCards() {
       motion.removeEventListener('change', configure);
     };
   }, []);
-  const background = projects.find(project => project.id === 'sinclair-place')?.images[0];
+  const backgroundProject = projects.find(project => project.id === 'sinclair-place');
+  const background = backgroundProject?.images[0];
   return <section ref={section} id="about-preview" className="about-preview" aria-label="Discover WER1 Group">
-    {background && <img ref={image} className="about-preview-background" src={background} alt="" loading="lazy" decoding="async" />}
+    {background && <picture>
+      {backgroundProject.landscapeImage && <source media="(min-width: 901px)" srcSet={backgroundProject.landscapeImage.src} width={backgroundProject.landscapeImage.width} height={backgroundProject.landscapeImage.height} />}
+      <img ref={image} className="about-preview-background" src={background} alt="" loading="lazy" decoding="async" />
+    </picture>}
     <div className="container about-preview-grid">
       {cards.map(card => <a key={card.id} className="about-preview-card" href={`/about#${card.id}`} aria-labelledby={`preview-${card.id}`}>
         <svg className="about-preview-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true"><path d={card.icon} /></svg>

@@ -7,7 +7,7 @@ import { ClockwiseBorder } from './ClockwiseBorder';
 export function ProjectCard({ project }: { project: Project }) {
   return <article className="project-card" data-project-id={project.id} aria-labelledby={`card-${project.id}`}>
     <ClockwiseBorder className="project-card-border" />
-    <div className="project-card-visual"><ProjectMedia project={project} />
+    <div className="project-card-visual"><ProjectMedia project={project} imageMode="landscape" />
       <span className="project-status">{project.status}</span>
     </div>
     <div className="project-card-copy"><h3 id={`card-${project.id}`}>{project.name}</h3>

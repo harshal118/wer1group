@@ -40,7 +40,7 @@ img { display: block; max-width: 100%; }
 .chevron { display: inline-block; width: 6px; height: 6px; border-right: 1px solid; border-bottom: 1px solid; transform: translateY(-2px) rotate(45deg); margin-left: 8px; }
 .menu-toggle { display: none; }
 .hero { background: #fff; }
-.hero-images { height: clamp(420px, calc(100svh - 210px), 760px); position: relative; overflow: hidden; background: #646b6d; touch-action: pan-y; }
+.hero-images { aspect-ratio: 1672 / 941; position: relative; overflow: hidden; background: #646b6d; touch-action: pan-y; }
 .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 800ms ease; }
 .hero-slide.is-active { opacity: 1; z-index: 1; }
 .hero-image, .hero-placeholder { position: absolute; width: 100%; height: 100%; object-fit: cover; }
@@ -106,7 +106,8 @@ address span { display: block; }
 .media-dialog h2 { font: 500 40px/1.1 var(--font-editorial); margin: 20px 0; }
 .media-dialog p:not(.eyebrow) { line-height: 1.7; margin-bottom: 20px; }
 .media-dialog a { text-decoration: underline; text-underline-offset: 5px; }
-@media (min-width: 1700px) { .hero-images { height: 760px; } }
+.hero-images .hero-image { object-fit: contain; }
+.hero-mobile-caption { display: none; }
 @media (max-width: 1024px) {
   .header-inner { height: 108px; }
   .brand { height: 108px; width: 165px; }
@@ -127,10 +128,13 @@ address span { display: block; }
   .navigation.is-open { display: flex; flex-direction: column; align-items: stretch; gap: 5px; }
   .navigation a, .navigation button { text-align: left; padding: 17px 0; }
   .navigation a::after, .navigation button::after { right: auto; width: 30px; }
-  .hero-images { height: clamp(420px, 65svh, 630px); }
-  .hero-caption { bottom: 36px; }
+  .hero-caption, .hero-shade { display: none; }
+  .hero-mobile-caption { display: block; padding-top: 20px; color: var(--ink); }
+  .hero-mobile-caption .eyebrow { margin-bottom: 14px; }
+  .hero-mobile-caption .hero-title { min-height: 2.16em; }
+  .hero-toolbar .project-caption { display: none; }
   .hero-title { font-size: 43px; }
-  .hero-toolbar { min-height: 108px; gap: 8px; }
+  .hero-toolbar { min-height: 0; padding-block: 16px; gap: 8px; }
   .slide-controls { gap: 0; }
   .project-caption > span { font-size: 11px; }
   .project-caption small { font-size: 10px; }
