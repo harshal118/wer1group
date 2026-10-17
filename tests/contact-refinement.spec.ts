@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-for (const width of [1920,1440,1024,768,430,390]) {
+for (const width of [1920,1440,1024,768,430,390,360]) {
   test(`contact layout and actions at ${width}`, async ({page}) => {
     const errors: string[] = [];
     page.on('pageerror', e => errors.push(e.message));
@@ -17,6 +17,37 @@ for (const width of [1920,1440,1024,768,430,390]) {
     await expect(main.locator('.instagram-link linearGradient')).toHaveCount(1);
     const cta = main.getByRole('link',{name:'Send Us an Email',exact:true});
     await expect(cta).toHaveAttribute('href','mailto:wer1infra@gmail.com');
+    await expect(main.locator('.contact-link-row').nth(1).locator('a').first()).toHaveAttribute('href','mailto:wer1infra@gmail.com');
+    await page.evaluate(() => document.fonts.ready);
+    // Finish the existing entrance animation before comparing geometry.
+    await main.locator('.contact-page-grid').evaluate(async element => {
+      await Promise.all(element.getAnimations().map(animation => animation.finished));
+    });
+    const center = await main.locator('.contact-conversation').evaluate(element => {
+      const box = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
+      const left = parseFloat(style.borderLeftWidth) + parseFloat(style.paddingLeft);
+      const right = parseFloat(style.borderRightWidth) + parseFloat(style.paddingRight);
+      return box.x + left + (box.width - left - right) / 2;
+    });
+    for (const row of await main.locator('.contact-link-row').all()) {
+      const links = await row.locator('a').all();
+      const boxes = await Promise.all(links.map(link => link.boundingBox()));
+      for (const link of links) await expect(link).toHaveCSS('font-size', '15px');
+      for (const box of boxes) expect(box!.height).toBeGreaterThanOrEqual(44);
+      if (width >= 1024) {
+        expect(boxes[0]!.y + boxes[0]!.height / 2).toBeCloseTo(boxes[1]!.y + boxes[1]!.height / 2, 1);
+        expect((boxes[0]!.x + boxes[1]!.x + boxes[1]!.width) / 2).toBeCloseTo(center, 1);
+        expect(boxes[1]!.x).toBeGreaterThan(boxes[0]!.x + boxes[0]!.width);
+      } else if (width <= 600) {
+        for (const box of boxes) expect(box!.x + box!.width / 2).toBeCloseTo(center, 1);
+        expect(boxes[1]!.y).toBeGreaterThanOrEqual(boxes[0]!.y + boxes[0]!.height);
+      }
+    }
+    const buttonBox = (await cta.boundingBox())!;
+    const rowsBox = (await main.locator('.contact-page-links').boundingBox())!;
+    expect(buttonBox.x + buttonBox.width / 2).toBeCloseTo(center, 1);
+    expect(buttonBox.y - rowsBox.y - rowsBox.height).toBeCloseTo(24, 1);
     await cta.focus();
     await expect(cta.locator('.brand-story-border path')).toHaveCSS('stroke-dashoffset','0px');
     await expect(cta).toHaveCSS('outline-style','solid');

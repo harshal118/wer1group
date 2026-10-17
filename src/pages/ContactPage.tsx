@@ -27,8 +27,9 @@ export function ContactPage() {
         </section>
         <section className="contact-conversation" aria-labelledby="conversation-title">
           <p className="eyebrow"><span>02</span> / Connect With Us</p><h2 id="conversation-title">Start a Conversation</h2>
-          <div className="contact-page-links">{company.contact.phones.map(phone => <a key={phone.href} href={phone.href}>{phone.display}</a>)}
-            <a href={`mailto:${company.contact.email}`}>{company.contact.email}</a><InstagramLink multicolor />
+          <div className="contact-page-links">
+            <div className="contact-link-row">{company.contact.phones.map(phone => <a key={phone.href} href={phone.href}>{phone.display}</a>)}</div>
+            <div className="contact-link-row"><a href={`mailto:${company.contact.email}`}>{company.contact.email}</a><InstagramLink multicolor /></div>
           </div>
           <BrandStoryCTA href={`mailto:${company.contact.email}`} label="Send Us an Email" />
         </section>
