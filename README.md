@@ -45,7 +45,7 @@ The listing order is explicit and is never sorted automatically:
 | Sinclair Place | Punawale | Completed | 2024 | sinclair-place.webp |
 | Aikyam | Punawale | Completed | 2025 | aikyam.webp |
 | Marunji | Marunji | Ongoing | Expected 2027 | marunji.webp |
-| Punawale | Punawale | Upcoming | Expected 2027 | Coming Soon placeholder only |
+| Punawale | Punawale | Upcoming | Expected 2030 | Coming Soon placeholder only |
 | Chinchwad | Chinchwad | Ongoing | Expected 2028 | chinchwad.webp |
 
 Every entry uses the client-approved `Residential + Complex` projectType. Descriptions are restrained editorial sentences based only on names, localities, completion years and status.
@@ -82,7 +82,7 @@ The dedicated `/contact` page and footer use the approved address; the homepage 
 
 VTP Altitude, 5th Floor, Office No. 526, Aundh–Ravet BRTS Road, Wakad, Pune – 411033, Maharashtra, India.
 
-Both phones (+91 7350004455 and +91 7887700722) are click-to-call. The published email is wer1infra@gmail.com. The proposed enquiry@wer1group.in address is stored separately as unverified and is not published.
+The contact number +91 7350004455 is click-to-call. The published email is wer1infra@gmail.com. The proposed enquiry@wer1group.in address is stored separately as unverified and is not published.
 
 Instagram is @wer1_group at the exact client-provided URL. Links use a recognizable icon, open in a new tab and include noopener/noreferrer. No follower counts or posts are fabricated. Contact actions open email/call links; no backend enquiry delivery is claimed.
 

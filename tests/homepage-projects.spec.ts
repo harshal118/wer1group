@@ -8,11 +8,11 @@ test('project filters preserve six-entry order and accurate fields', async ({ pa
   await expect(names).toHaveText(order);
   await expect(page.locator('.project-facts')).toContainText(Array(6).fill('Residential + Complex'));
   await expect(page.locator('.project-card .project-status')).toHaveText(['Completed', 'Completed', 'Completed', 'Ongoing', 'Upcoming', 'Ongoing']);
-  for (const [index, year] of [2023, 2024, 2025, 2027, 2027, 2028].entries()) {
+  for (const [index, year] of [2023, 2024, 2025, 2027, 2030, 2028].entries()) {
     const facts = page.locator('.project-facts').nth(index);
     await expect(facts).toContainText(String(year));
-    await expect(facts.locator('div').filter({ has: page.locator('dt', { hasText: 'Land Area' }) }).locator('dd')).toHaveText(['5,400 sq. ft.', '6,000 sq. ft.', '17,400 sq. ft.', '4,300 sq. ft.', '50,000 sq. ft.', '11,300 sq. ft.'][index]);
-    await expect(facts.locator('div').filter({ has: page.locator('dt', { hasText: 'Total Units' }) }).locator('dd')).toHaveText(['10', '16', '60', '20', 'Details Coming Soon', '50'][index]);
+    await expect(facts.locator('div').filter({ has: page.locator('dt', { hasText: 'Land Area' }) }).locator('dd')).toHaveText(['5,400 sq. ft.', '4,900 sq. ft.', '17,400 sq. ft.', '4,300 sq. ft.', '50,000 sq. ft.', '11,300 sq. ft.'][index]);
+    await expect(facts.locator('div').filter({ has: page.locator('dt', { hasText: 'Total Units' }) }).locator('dd')).toHaveText(['10', '12', '60', '20', 'Details Coming Soon', '50'][index]);
   }
   await expect(page.locator('.project-description')).toHaveCount(6);
   const filters = page.getByRole('group', { name: 'Filter projects' });
@@ -24,7 +24,7 @@ test('project filters preserve six-entry order and accurate fields', async ({ pa
   await expect(names).toHaveText(['Punawale']);
   await expect(page.locator('.project-card img')).toHaveCount(0);
   await expect(page.locator('.coming-soon-copy')).toContainText('Coming soon');
-  await expect(page.locator('.coming-soon-copy')).toContainText('Expected Completion 2027');
+  await expect(page.locator('.coming-soon-copy')).toContainText('Expected Completion 2030');
   await filters.getByRole('button', { name: 'All Projects' }).click();
   await expect(names).toHaveText(order);
 });
@@ -86,7 +86,7 @@ for (const width of [1440, 390]) {
     await expect(page.locator('main address')).toContainText('VTP Altitude, 5th Floor, Office No. 526,Aundh–Ravet BRTS Road, Wakad,Pune – 411033, Maharashtra, India.');
     await expect(page.locator('footer address')).toContainText('VTP Altitude');
     await expect(page.locator('footer a[href="tel:+917350004455"]')).toBeVisible();
-    await expect(page.locator('footer a[href="tel:+917887700722"]')).toBeVisible();
+    await expect(page.locator('footer a[href^="tel:"]')).toHaveCount(1);
     const instagram = page.locator('footer .instagram-link');
     await expect(instagram).toHaveAttribute('href', 'https://www.instagram.com/wer1_group?vrfl=amszYmQ3cGVmbnk1');
     await expect(instagram).toHaveAttribute('target', '_blank');

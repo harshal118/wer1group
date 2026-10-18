@@ -8,6 +8,6 @@ PDF page 8 describes a different upcoming Punawale development: end-of-2027 laun
 
 These records cannot be combined or attributed to the current single public Punawale entry without client confirmation. All six website entries retain null landArea and totalUnits fields. Residential floor area is never treated as a unit count.
 
-The approved public name is **Punawale**, with expected completion 2027. No phase names, source areas, launch dates or photographs are published for this entry. Both original render assets remain preserved.
+The approved public name is **Punawale**, with expected completion 2030. No phase names, source areas, launch dates or photographs are published for this entry. Both original render assets remain preserved.
 
 The PDF classifies Aikyam as residential + commercial, and Sinclair Place and Sukhada Apartment as residential. The current client display label, **Residential + Complex**, overrides those classifications for all six entries.

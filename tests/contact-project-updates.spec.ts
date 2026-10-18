@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const message = 'Hello WER1 Group, I’m interested in your real estate and infrastructure solutions. I would like to discuss my project requirements and explore how we can work together. Please connect with me.\n\nThank You';
 const specs = [
-  ['sinclair-place', '6,000 sq. ft.', '16', 'Completed'],
+  ['sinclair-place', '4,900 sq. ft.', '12', 'Completed'],
   ['chinchwad', '11,300 sq. ft.', '50', 'Ongoing'],
   ['marunji', '4,300 sq. ft.', '20', 'Ongoing'],
   ['aikyam', '17,400 sq. ft.', '60', 'Completed'],
@@ -29,7 +29,7 @@ for (const width of [360, 390, 430, 768, 1024, 1440, 1920]) {
       expect(box.width).toBeGreaterThanOrEqual(44);
       expect(box.height).toBeGreaterThanOrEqual(44);
       await expect(page.locator('footer a[href="tel:+917350004455"]')).toHaveText('+91 7350004455');
-      await expect(page.locator('footer a[href="tel:+917887700722"]')).toHaveText('+91 7887700722');
+      await expect(page.locator('footer a[href^="tel:"]')).toHaveCount(1);
       if (route === '/') await expect(page.locator('.about-copy > p')).toHaveCSS('text-align', 'justify');
       if (width <= 768) {
         const selectors = route === '/' ? ['.project-description', '.about-preview-card > p', '.credibility-pillar > p']

@@ -11,7 +11,7 @@ for (const width of [1920,1440,1024,768,430,390,360]) {
     await expect(main.locator('address')).toHaveText('VTP Altitude, 5th Floor, Office No. 526,Aundh–Ravet BRTS Road, Wakad,Pune – 411033, Maharashtra, India.');
     await expect(main.locator('a[href^="tel:"], .instagram-link')).toHaveCount(0);
     await expect(page.locator('footer a[href="tel:+917350004455"]')).toHaveText('+91 7350004455');
-    await expect(page.locator('footer a[href="tel:+917887700722"]')).toHaveText('+91 7887700722');
+    await expect(page.locator('footer a[href^="tel:"]')).toHaveCount(1);
     await expect(page.locator('footer .instagram-link linearGradient')).toHaveCount(1);
     await expect(page.locator('footer a[href="mailto:wer1infra@gmail.com"]')).toBeVisible();
     const cta = main.getByRole('link',{name:'Send Us an Email',exact:true});
