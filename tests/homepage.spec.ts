@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 
-const heroOrder = ['Aikyam', 'Chinchwad', 'Sinclair Place', 'Sukhada Apartment', 'Marunji'];
+const heroOrder = ['Aikyam', 'Chinchwad', 'Sinclair Place', 'Sukhada Apartment', 'Jija Heights'];
 
 for (const width of [1920, 1440, 1366, 1024, 768, 430, 390]) {
   test(`homepage at ${width}px: brand, layout, navigation and loaded assets`, async ({ page }) => {
@@ -105,7 +105,7 @@ test('arrows, dots, keyboard and touch restart autoplay after manual navigation'
   await page.keyboard.press('ArrowLeft');
   await expectSlide(page, 'Aikyam');
   await page.getByRole('button', { name: 'Previous project' }).click();
-  await expectSlide(page, 'Marunji');
+  await expectSlide(page, 'Jija Heights');
   await page.locator('.hero-images').evaluate(element => {
     const start = new Touch({ identifier: 1, target: element, clientX: 300, clientY: 200 });
     const end = new Touch({ identifier: 1, target: element, clientX: 100, clientY: 205 });

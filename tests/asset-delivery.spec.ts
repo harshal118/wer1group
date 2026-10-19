@@ -53,7 +53,7 @@ for (const [path, selector] of [
       expect(actual.hash).toBe(expected.hash);
       await expect(page.locator(selector)).toBeVisible();
       if (actual.hash) await expect(page.locator(selector)).toBeInViewport();
-      if (actual.search) await expect(page.locator('.project-card h3')).toHaveText(['Chinchwad', 'Marunji']);
+      if (actual.search) await expect(page.locator('.project-card h3')).toHaveText(['Chinchwad', 'Jija Heights']);
       if (!attempt) response = await page.reload();
     }
   });

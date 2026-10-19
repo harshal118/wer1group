@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const order = ['Sukhada Apartment', 'Sinclair Place', 'Aikyam', 'Marunji', 'Punawale', 'Chinchwad'];
+const order = ['Sukhada Apartment', 'Sinclair Place', 'Aikyam', 'Jija Heights', 'Punawale', 'Chinchwad'];
 
 test('project filters preserve six-entry order and accurate fields', async ({ page }) => {
   await page.goto('/');
@@ -19,7 +19,7 @@ test('project filters preserve six-entry order and accurate fields', async ({ pa
   await filters.getByRole('button', { name: 'Completed', exact: true }).click();
   await expect(names).toHaveText(order.slice(0, 3));
   await filters.getByRole('button', { name: 'Ongoing', exact: true }).click();
-  await expect(names).toHaveText(['Marunji', 'Chinchwad']);
+  await expect(names).toHaveText(['Jija Heights', 'Chinchwad']);
   await filters.getByRole('button', { name: 'Upcoming', exact: true }).click();
   await expect(names).toHaveText(['Punawale']);
   await expect(page.locator('.project-card img')).toHaveCount(0);

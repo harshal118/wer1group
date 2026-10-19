@@ -44,13 +44,13 @@ The listing order is explicit and is never sorted automatically:
 | Sukhada Apartment | Punawale | Completed | 2023 | sukhada-apartment.webp |
 | Sinclair Place | Punawale | Completed | 2024 | sinclair-place.webp |
 | Aikyam | Punawale | Completed | 2025 | aikyam.webp |
-| Marunji | Marunji | Ongoing | Expected 2027 | marunji.webp |
+| Jija Heights | Marunji | Ongoing | Expected 2027 | marunji.webp |
 | Punawale | Punawale | Upcoming | Expected 2030 | Coming Soon placeholder only |
 | Chinchwad | Chinchwad | Ongoing | Expected 2028 | chinchwad.webp |
 
 Every entry uses the client-approved `Residential + Complex` projectType. Descriptions are restrained editorial sentences based only on names, localities, completion years and status.
 
-The hero has a distinct explicit sequence: **Aikyam → Chinchwad → Sinclair Place → Sukhada Apartment → Marunji**. It contains exactly five project images, changes every 5 seconds, uses an 800ms crossfade, loops continuously and supports arrows, dots, keyboard arrows and horizontal touch gestures. Manual interaction restarts the countdown, including selecting the active dot. There is no playback toggle or hover/focus pause. StrictMode cleanup retains one timer. Reduced-motion settings disable animation while keeping automatic advancement.
+The hero has a distinct explicit sequence: **Aikyam → Chinchwad → Sinclair Place → Sukhada Apartment → Jija Heights**. It contains exactly five project images, changes every 5 seconds, uses an 800ms crossfade, loops continuously and supports arrows, dots, keyboard arrows and horizontal touch gestures. Manual interaction restarts the countdown, including selecting the active dot. There is no playback toggle or hover/focus pause. StrictMode cleanup retains one timer. Reduced-motion settings disable animation while keeping automatic advancement.
 
 Existing served WebP copies at `public/media/projects/` match the originals in `assets/projects/` byte-for-byte. No project asset was moved, renamed, overwritten or deleted in this update. ProjectMedia provides a consistent missing-image fallback. Punawale has an empty image array, is absent from the hero and displays a neutral branded Coming Soon visual with its name and expected completion. No historical Punawale photograph is referenced or requested by the app.
 
@@ -62,7 +62,7 @@ The five optimized 1672 × 941 WebP images live in `public/media/projects/Landsc
 | --- | --- |
 | `Aikyam_Landscape.webp` | Aikyam |
 | `Chinchwad_Landscape.webp` | Chinchwad |
-| `Marunji_Landscape.webp` | Marunji |
+| `Marunji_Landscape.webp` | Jija Heights |
 | `Sinclair_Landscape.webp` | Sinclair Place |
 | `Sukhada_Landscape.webp` | Sukhada Apartment |
 
