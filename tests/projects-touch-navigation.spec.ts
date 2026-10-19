@@ -1,6 +1,6 @@
 import { chromium, webkit, devices, expect, test } from '@playwright/test';
 
-const all = ['Sukhada Apartment', 'Sinclair Place', 'Aikyam', 'Jija Heights', 'Punawale', 'Chinchwad'];
+const all = ['Sukhada Apartment', 'Sinclair Place', 'Aikyam', 'Jija Heights', 'Punawale', 'Avisha'];
 const options = [
   { label: 'All Projects', filter: 'all', names: all },
   { label: 'Completed', filter: 'completed', names: all.slice(0, 3) },
@@ -56,7 +56,7 @@ for (const browserName of ['chromium', 'webkit'] as const) {
         // Ongoing exists in the page filters, but is not a current navbar option.
         await filters.getByRole('button', { name: 'Ongoing', exact: true }).tap();
         await expect(page).toHaveURL('/projects?filter=ongoing');
-        await expect(page.locator('.project-card h3')).toHaveText(['Jija Heights', 'Chinchwad']);
+        await expect(page.locator('.project-card h3')).toHaveText(['Jija Heights', 'Avisha']);
         expect(await page.evaluate(() => (window as unknown as { navigationMarker: string }).navigationMarker)).toBe('preserved');
         } finally { await browser.close(); }
       });

@@ -16,7 +16,7 @@ for (const width of [1920, 1440, 1366, 1024, 769, 768, 430, 390, 375, 360]) {
     expect(initial!.width).toBe(width);
     expect(initial!.height).toBeCloseTo(width * 941 / 1672, 1);
 
-    for (const name of ['Aikyam', 'Chinchwad', 'Sinclair Place', 'Sukhada Apartment', 'Jija Heights']) {
+    for (const name of ['Aikyam', 'Avisha', 'Sinclair Place', 'Sukhada Apartment', 'Jija Heights']) {
       await page.getByRole('button', { name: `Show ${name}`, exact: true }).click();
       const image = page.locator('.hero-slide.is-active img');
       await expect.poll(() => image.evaluate(img => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0)).toBe(true);

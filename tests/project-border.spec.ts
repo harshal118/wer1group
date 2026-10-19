@@ -6,7 +6,7 @@ for (const width of [1440, 1024, 768, 390]) {
     await page.goto('/');
     const cards = page.locator('.project-card');
     await expect(cards).toHaveCount(6);
-    await expect(cards.locator('h3')).toHaveText(['Sukhada Apartment', 'Sinclair Place', 'Aikyam', 'Jija Heights', 'Punawale', 'Chinchwad']);
+    await expect(cards.locator('h3')).toHaveText(['Sukhada Apartment', 'Sinclair Place', 'Aikyam', 'Jija Heights', 'Punawale', 'Avisha']);
     for (const card of await cards.all()) {
       await card.scrollIntoViewIfNeeded();
       const geometry = await card.evaluate(el => {

@@ -1,12 +1,15 @@
 import { expect, test } from '@playwright/test';
 
-const order = ['Sukhada Apartment', 'Sinclair Place', 'Aikyam', 'Jija Heights', 'Punawale', 'Chinchwad'];
+const order = ['Sukhada Apartment', 'Sinclair Place', 'Aikyam', 'Jija Heights', 'Punawale', 'Avisha'];
 
 test('project filters preserve six-entry order and accurate fields', async ({ page }) => {
   await page.goto('/');
   const names = page.locator('.project-card h3');
   await expect(names).toHaveText(order);
-  await expect(page.locator('.project-facts')).toContainText(Array(6).fill('Residential + Complex'));
+  for (const id of ['aikyam', 'chinchwad', 'sinclair-place', 'sukhada-apartment', 'marunji', 'punawale']) {
+    await expect(page.locator(`[data-project-id="${id}"] .project-facts > div`).filter({ has: page.locator('dt', { hasText: 'Project type' }) }).locator('dd'))
+      .toHaveText(['chinchwad', 'marunji'].includes(id) ? 'Residential' : 'Residential + Commercial');
+  }
   await expect(page.locator('.project-card .project-status')).toHaveText(['Completed', 'Completed', 'Completed', 'Ongoing', 'Upcoming', 'Ongoing']);
   for (const [index, year] of [2023, 2024, 2025, 2027, 2030, 2028].entries()) {
     const facts = page.locator('.project-facts').nth(index);
@@ -19,7 +22,7 @@ test('project filters preserve six-entry order and accurate fields', async ({ pa
   await filters.getByRole('button', { name: 'Completed', exact: true }).click();
   await expect(names).toHaveText(order.slice(0, 3));
   await filters.getByRole('button', { name: 'Ongoing', exact: true }).click();
-  await expect(names).toHaveText(['Jija Heights', 'Chinchwad']);
+  await expect(names).toHaveText(['Jija Heights', 'Avisha']);
   await filters.getByRole('button', { name: 'Upcoming', exact: true }).click();
   await expect(names).toHaveText(['Punawale']);
   await expect(page.locator('.project-card img')).toHaveCount(0);

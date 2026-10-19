@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-const all = ['Sukhada Apartment', 'Sinclair Place', 'Aikyam', 'Jija Heights', 'Punawale', 'Chinchwad'];
+const all = ['Sukhada Apartment', 'Sinclair Place', 'Aikyam', 'Jija Heights', 'Punawale', 'Avisha'];
 
 for (const [query, active, names] of [
   ['', 'All Projects', all], ['?filter=all', 'All Projects', all],
@@ -38,7 +38,7 @@ test('desktop dropdown filters without reload and supports Back/Forward and filt
   await expect(page.locator('.project-card h3')).toHaveText(['Punawale']);
   await page.getByRole('group', { name: 'Filter projects' }).getByRole('button', { name: 'Ongoing', exact: true }).click();
   await expect(page).toHaveURL('/projects?filter=ongoing');
-  await expect(page.locator('.project-card h3')).toHaveText(['Jija Heights', 'Chinchwad']);
+  await expect(page.locator('.project-card h3')).toHaveText(['Jija Heights', 'Avisha']);
   await trigger.hover();
   await dropdown.getByRole('link', { name: 'All Projects', exact: true }).click();
   await expect(page.locator('.project-card h3')).toHaveText(all);

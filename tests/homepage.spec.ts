@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 
-const heroOrder = ['Aikyam', 'Chinchwad', 'Sinclair Place', 'Sukhada Apartment', 'Jija Heights'];
+const heroOrder = ['Aikyam', 'Avisha', 'Sinclair Place', 'Sukhada Apartment', 'Jija Heights'];
 
 for (const width of [1920, 1440, 1366, 1024, 768, 430, 390]) {
   test(`homepage at ${width}px: brand, layout, navigation and loaded assets`, async ({ page }) => {
@@ -87,13 +87,13 @@ test('arrows, dots, keyboard and touch restart autoplay after manual navigation'
   await openSlideshow(page);
   await page.clock.runFor(4000);
   await page.getByRole('button', { name: 'Next project' }).click();
-  await expectSlide(page, 'Chinchwad');
+  await expectSlide(page, 'Avisha');
   await page.clock.runFor(4999);
-  await expectSlide(page, 'Chinchwad');
+  await expectSlide(page, 'Avisha');
   await page.clock.runFor(1);
   await expectSlide(page, 'Sinclair Place');
   await page.getByRole('button', { name: 'Previous project' }).click();
-  await expectSlide(page, 'Chinchwad');
+  await expectSlide(page, 'Avisha');
   await page.getByRole('button', { name: 'Show Aikyam' }).click();
   await expectSlide(page, 'Aikyam');
   await page.clock.runFor(4000);
@@ -101,7 +101,7 @@ test('arrows, dots, keyboard and touch restart autoplay after manual navigation'
   await page.clock.runFor(4999);
   await expectSlide(page, 'Aikyam');
   await page.clock.runFor(1);
-  await expectSlide(page, 'Chinchwad');
+  await expectSlide(page, 'Avisha');
   await page.keyboard.press('ArrowLeft');
   await expectSlide(page, 'Aikyam');
   await page.getByRole('button', { name: 'Previous project' }).click();
@@ -114,7 +114,7 @@ test('arrows, dots, keyboard and touch restart autoplay after manual navigation'
   });
   await expectSlide(page, 'Aikyam');
   await page.clock.runFor(5000);
-  await expectSlide(page, 'Chinchwad');
+  await expectSlide(page, 'Avisha');
 });
 
 test('reduced motion removes animation while autoplay continues', async ({ page }) => {
@@ -123,5 +123,5 @@ test('reduced motion removes animation while autoplay continues', async ({ page 
   await expect(page.locator('.hero-slide.is-active')).toHaveCSS('transition-duration', '0s');
   await expect(page.locator('h1')).toHaveCSS('animation-name', 'none');
   await page.clock.runFor(5000);
-  await expectSlide(page, 'Chinchwad');
+  await expectSlide(page, 'Avisha');
 });
