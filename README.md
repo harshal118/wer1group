@@ -43,7 +43,7 @@ The listing order is explicit and is never sorted automatically:
 | --- | --- | --- | --- | --- |
 | Sukhada Apartment | Punawale | Completed | 2023 | sukhada-apartment.webp |
 | Sinclair Place | Punawale | Completed | 2024 | sinclair-place.webp |
-| Aikyam | Punawale | Completed | 2025 | aikyam.webp |
+| Aikyam | Punawale | Completed | 2024 | aikyam.webp |
 | Jija Heights | Marunji | Ongoing | Expected 2027 | marunji.webp |
 | Punawale | Punawale | Upcoming | Expected 2030 | Coming Soon placeholder only |
 | Avisha | Chinchwad | Ongoing | Expected 2028 | chinchwad.webp |

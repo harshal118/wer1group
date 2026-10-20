@@ -11,7 +11,7 @@ test('project filters preserve six-entry order and accurate fields', async ({ pa
       .toHaveText(['chinchwad', 'marunji'].includes(id) ? 'Residential' : 'Residential + Commercial');
   }
   await expect(page.locator('.project-card .project-status')).toHaveText(['Completed', 'Completed', 'Completed', 'Ongoing', 'Upcoming', 'Ongoing']);
-  for (const [index, year] of [2023, 2024, 2025, 2027, 2030, 2028].entries()) {
+  for (const [index, year] of [2023, 2024, 2024, 2027, 2030, 2028].entries()) {
     const facts = page.locator('.project-facts').nth(index);
     await expect(facts).toContainText(String(year));
     await expect(facts.locator('div').filter({ has: page.locator('dt', { hasText: 'Land Area' }) }).locator('dd')).toHaveText(['5,400 sq. ft.', '4,900 sq. ft.', '17,400 sq. ft.', '4,300 sq. ft.', '50,000 sq. ft.', '11,300 sq. ft.'][index]);
