@@ -16,6 +16,7 @@ for (const path of ['/', '/about', '/projects', '/contact']) {
     await page.goto(path);
     expect(new URL(page.url()).pathname).toBe(path);
     await expect(page.locator('main')).toBeVisible();
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://wer1group.in${path}`);
     await page.evaluate(() => document.fonts.ready);
     expect(await page.evaluate(() => [...document.styleSheets].some(sheet => sheet.href?.includes('/assets/') && sheet.cssRules.length > 0))).toBe(true);
     for (const width of [1920, 1440, 1366, 1024, 768, 430, 390]) {
@@ -52,6 +53,7 @@ for (const [path, selector] of [
       expect(actual.search).toBe(expected.search);
       expect(actual.hash).toBe(expected.hash);
       await expect(page.locator(selector)).toBeVisible();
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://wer1group.in${actual.pathname.replace(/\/$/, '') || '/'}`);
       if (actual.hash) await expect(page.locator(selector)).toBeInViewport();
       if (actual.search) await expect(page.locator('.project-card h3')).toHaveText(['Avisha', 'Jija Heights']);
       if (!attempt) response = await page.reload();
